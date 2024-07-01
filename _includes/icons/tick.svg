@@ -1,0 +1,1 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="{{ include.width | default: '1em' }}" height="{{ include.height | default: '1em' }}" class="{{ include.classes }}" fill="currentColor" viewBox="0 0 16 16" role="{{ include.role | default: 'presentation' }}"><path d="m13.566 2-7.48 7.305-3.652-3.653L0 8.088l6.087 6.087L16 4.435z"/></svg>

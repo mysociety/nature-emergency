@@ -1,0 +1,43 @@
+title: nature-emergency
+baseurl: "/nature-emergency" # the subpath of your site, e.g. /blog
+url: "https://mysociety.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+host: 0.0.0.0
+
+defaults:
+  -
+    scope:
+      path: "councils"
+    values:
+      canonical: "/nature-emergency/"
+
+exclude:
+  - .browserlistrc
+  - .ruby-version
+  - .sass-cache/
+  - .jekyll-cache/
+  - gemfiles/
+  - Gemfile
+  - Gemfile.lock
+  - Makefile
+  - node_modules/
+  - README.md
+  - script/
+  - ssl/
+  - vendor/
+
+sass:
+  sourcemap: never
+  load_paths:
+    - static/vendor/
+
+plugins:
+  - jekyll-datapage-generator
+
+# https://github.com/avillafiorita/jekyll-datapage_gen
+page_gen:
+  - data: councils
+    template: home
+    dir: councils
+    index_files: true
+    name: council_slug
+    title: council_name

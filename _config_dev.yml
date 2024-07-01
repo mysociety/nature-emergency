@@ -1,0 +1,11 @@
+title: nature-emergency (local development)
+baseurl: ""
+url: ""
+host: 0.0.0.0
+
+defaults:
+  -
+    scope:
+      path: "councils"
+    values:
+      canonical: "/"

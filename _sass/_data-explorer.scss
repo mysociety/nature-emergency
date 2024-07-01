@@ -1,0 +1,100 @@
+.data-explorer {
+    border: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color);
+    border-radius: $border-radius;
+    overflow: hidden; // crop contents to rounded corners
+}
+
+.data-explorer__map {
+    height: 50dvh;
+}
+
+.data-explorer__filters {
+    display: none;
+    border-bottom: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color);
+
+    &.active {
+        display: block;
+    }
+}
+
+.data-explorer__list {
+    // horizontal border between map (above) and filters/list (below)
+    border-top: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color);
+}
+
+@include media-breakpoint-up(lg) {
+    html, body {
+        scroll-snap-type: y proximity;
+    }
+
+    .data-explorer {
+        display: flex;
+        height: calc(100dvh - 4rem);
+        scroll-snap-align: start;
+        scroll-margin-top: 2rem;
+    }
+
+    .data-explorer__map {
+        width: 40%;
+        height: 100%;
+        order: 2
+    }
+
+    .data-explorer__list {
+        width: 60%;
+        height: 100%;
+        order: 1;
+
+        display: flex;
+        flex-direction: column;
+
+        // vertical border between filters/list (left) and map (right)
+        border-right: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color);
+        border-top: none;
+    }
+
+    .data-explorer__list__table {
+        overflow: auto;
+    }
+}
+
+.data-explorer__list__filters__primary,
+.data-explorer__list__filters__secondary {
+    margin-top: 1rem;
+
+    display: grid;
+    grid-template-columns: repeat( auto-fit, minmax(225px, 1fr) );
+    gap: 1rem;
+}
+
+.data-explorer__list__status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    --bs-bg-opacity: 1;
+    background-color: rgba(var(--bs-light-rgb), var(--bs-bg-opacity));
+    border-bottom: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color);
+}
+
+.data-explorer__list__table {
+    thead {
+        position: sticky;
+        top: 0;
+        box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.05);
+    }
+
+    .highlighted {
+        td {
+            background-color: $yellow-100;
+            border-bottom-color: rgba(0, 0, 0, 0.1)
+        }
+    }
+
+    .expanded {
+        td {
+            background-color: $yellow-100;
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0) 0.5rem);
+        }
+    }
+}

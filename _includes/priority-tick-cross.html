@@ -1,0 +1,7 @@
+{%- if include.i == "1" -%}
+    {%- include icons/tick.svg classes=include.classes width=include.width height=include.height role=include.role -%}
+{%- elsif include.i == "2" -%}
+    {%- include icons/question.svg classes=include.classes width=include.width height=include.height role=include.role -%}
+{%- else -%}
+    {%- include icons/cross.svg classes=include.classes width=include.width height=include.height role=include.role -%}
+{%- endif -%}
