@@ -1,5 +1,10 @@
-<tr class="expanded">
+<tr class="expanded collapse show" id="{{ c.council_slug  }}-section">
     <td colspan="5" class="p-3 p-lg-4">
+        <button class="btn btn-sm btn-outline-primary d-flex align-items-center mb-3"  data-bs-toggle="collapse" data-bs-target="#{{ c.council_slug  }}-section" aria-expanded="true">
+          <span class="me-1">Collapse this section</span>
+          {%- include icons/cross.svg classes=include.classes width=include.width height=include.height role=include.role -%}
+        </button>
+
         <h2 class="h5 mb-0">
             {{ include.council.council_name | default: '[[ council.council_name ]]' }}
 
