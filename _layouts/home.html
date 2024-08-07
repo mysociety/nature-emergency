@@ -205,7 +205,7 @@ layout: default
                     </thead>
                     <tbody>
                     {%- for c in site.data.councils -%}
-                        <tr class="{% if c.council_slug == page.council_slug %}highlighted{% endif %}" data-council-slug="{{ c.council_slug }}" data-council-type="{{ c.council_type }}" data-council-nation="{{ c.council_nation }}" data-council-region="{{ c.council_region }}" data-council-ruc="{{ c.council_ruc }}" data-council-imd="{{ c.council_imd }}" data-council-data-council-ned="{{ c.ned }}" data-ned-date-passed="{{ c.ned_date_passed | date: '%Y' }}" data-priority-1="{{ c.priority_1 }}" data-priority-2="{{ c.priority_2 }}" data-priority-3="{{ c.priority_3 }}">
+                        <tr class="{% if c.council_slug == page.council_slug %}highlighted{% endif %}" data-council-slug="{{ c.council_slug }}" data-council-type="{{ c.council_type }}" data-council-nation="{{ c.council_nation }}" data-council-region="{{ c.council_region }}" data-council-ruc="{{ c.council_ruc }}" data-council-imd="{{ c.council_imd }}" data-council-data-council-ned="{{ c.ned }}" data-ned-date-passed="{{ c.ned_date_passed | date: '%Y' }}" data-priority-1="{{ c.priority_1 }}" data-priority-2="{{ c.priority_2 }}" data-priority-3="{{ c.priority_3 }}" aria-expanded="{% if c.council_slug == page.council_slug %}true{% else %}false{% endif %}">
                             <td>
                                 <a href="{{ c.council_slug | prepend: 'councils/' | relative_url }}#councils">{{ c.council_name }}</a>
                             </td>
