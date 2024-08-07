@@ -15,12 +15,17 @@
     <link rel="canonical" href="{{ page.canonical }}">
 </head>
 <body>
+    {% include header.html %}
+
     {{ content }}
+
+    {% include footer.html %}
     <script src="{{ '/static/vendor/jquery/js/jquery-3.7.1.min.js' | relative_url }}"></script>
     <script src="{{ '/static/vendor/underscore/js/underscore-1.13.6.min.js' | relative_url }}"></script>
     <script src="{{ '/static/vendor/leaflet/js/leaflet-1.9.4.min.js' | relative_url }}"></script>
     <script src="{{ '/static/vendor/bootstrap/js/bootstrap-5.3.3.bundle.min.js' | relative_url }}"></script>
     <script src="{{ '/static/vendor/awesomplete/js/awesomplete.min.js' | relative_url }}"></script>
+    <script src="{{ '/static/vendor/popper/js/popper.min.js' | relative_url }}"></script>
     <script>
     window.baseurl = '{{ site.baseurl }}';
     window.councils = [
@@ -28,6 +33,12 @@
         {{- c | jsonify -}},
       {%- endfor -%}
     ];
+    </script>
+    <script>
+      var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+      var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+      })
     </script>
     <script src="{{ '/static/js/main.js' | relative_url }}"></script>
 </body>

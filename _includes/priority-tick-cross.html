@@ -1,5 +1,7 @@
 {%- if include.i == "1" -%}
     {%- include icons/tick.svg classes=include.classes width=include.width height=include.height role=include.role -%}
+    <span class="visually-hidden">Yes</span>
 {%- else -%}
     {%- include icons/cross.svg classes=include.classes width=include.width height=include.height role=include.role -%}
+    <span class="visually-hidden">No</span>
 {%- endif -%}

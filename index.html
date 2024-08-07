@@ -1,3 +1,251 @@
 ---
-layout: home
+layout: default
 ---
+
+<div class="container-xxl">
+    <div class="bg-light p-4 p-xl-5">
+        <div style="max-width: 30em">
+            <h1 class="text-redacted">Lorem ipsum dolor sit amet, consectetur?</h1>
+            <p class="lead text-redacted">
+                Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+            </p>
+            <form>
+                <label class="form-label" for="pc">Find your council by name or postcode</label>
+                <div class="d-flex gap-3">
+                    <input type="search" class="form-control form-control-lg" name="pc" id="pc">
+                    <button class="btn btn-lg btn-outline-secondary d-flex align-items-center" type="submit" aria-label="search">{%- include icons/search.svg -%}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="container-xxl my-4 my-xl-5">
+    <div class="row mt-n3">
+        <div class="col-6 col-lg-3 mt-3 d-flex">
+            <div class="bg-light rounded p-3 p-lg-4 w-100 d-flex flex-column align-items-center justify-content-center text-center">
+                <strong class="d-block h1"><span class="text-redacted">99</span>%</strong>
+                of councils have declared a nature emergency
+                <a href="#" class="d-inline-block mt-3">Why does this matter?</a>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3 mt-3 d-flex">
+            <div class="bg-light rounded p-3 p-lg-4 w-100 d-flex flex-column align-items-center justify-content-center text-center">
+                <strong class="d-block h1"><span class="text-redacted">99</span>%</strong>
+                have committed to develop an evidence-based action plan for pushing nature into recovery
+                <a href="#" class="d-inline-block mt-3">Why does this matter?</a>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3 mt-3 d-flex">
+            <div class="bg-light rounded p-3 p-lg-4 w-100 d-flex flex-column align-items-center justify-content-center text-center">
+                <strong class="d-block h1"><span class="text-redacted">99</span>%</strong>
+                have committed to embed nature’s recovery into all strategic plans and policy areas
+                <a href="#" class="d-inline-block mt-3">Why does this matter?</a>
+            </div>
+        </div>
+        <div class="col-6 col-lg-3 mt-3 d-flex">
+            <div class="bg-light rounded p-3 p-lg-4 w-100 d-flex flex-column align-items-center justify-content-center text-center">
+                <strong class="d-block h1"><span class="text-redacted">99</span>%</strong>
+                have committed to protect and manage 30% of Council landholdings for nature recovery by 2030
+                <a href="#" class="d-inline-block mt-3">Why does this matter?</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-xxl my-4 my-xl-5" id="councils">
+
+    <h2 class="mb-3 mb-lg-4">Browse the scores</h2>
+
+    <div class="data-explorer border-top border-bottom">
+
+        <div class="data-explorer__map bg-light" id="map"></div>
+
+        <div class="data-explorer__list">
+            <aside class="data-explorer__filters bg-light p-3 p-lg-4">
+                <h3 class="h4 mb-0">Search &amp; filter</h3>
+                <div class="data-explorer__list__filters__primary">
+                    <div>
+                        <label class="form-label" for="filter-pc">Postcode or council name</label>
+                        <div class="d-flex gap-3">
+                            <input type="search" class="form-control" name="pc" id="filter-pc">
+                            <button class="btn btn-outline-secondary d-flex align-items-center" type="submit" aria-label="search">{% include icons/search.svg %}</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="data-explorer__list__filters__secondary">
+                    <div>
+                        <label class="form-label" for="filter-ned">Nature emergency declaration</label>
+                        <select class="form-select" id="filter-ned">
+                            <option selected>All</option>
+                            <option>Has declared a nature emergency</option>
+                            <option>Has not declared a nature emergency</option>
+                            <option>Has committed to Priority Action 1</option>
+                            <option>Has committed to Priority Action 2</option>
+                            <option>Has committed to Priority Action 3</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label" for="filter-ned-date">Year declaration passed</label>
+                        <select class="form-select" id="filter-ned-date">
+                            <option selected>All</option>
+                            <option>2024</option>
+                            <option>2023</option>
+                            <option>2022</option>
+                            <option>2021</option>
+                            <option>2020</option>
+                            <option>2019</option>
+                            <option>2018</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label" for="filter-council-type">Council type</label>
+                        <select class="form-select" id="filter-council-type">
+                            <option selected>All</option>
+                            <option>County, Borough, City, and Unitary councils</option>
+                            <option>District councils</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label" for="filter-council-region">Country/region</label>
+                        <select class="form-select" id="filter-council-region">
+                            <option selected>All</option>
+                            <optgroup label="Countries">
+                                <option>England</option>
+                                <option>Scotland</option>
+                                <option>Wales</option>
+                                <option>Northern Ireland</option>
+                            </optgroup>
+                            <optgroup label="Regions of England">
+                                <option>East Midlands</option>
+                                <option>East of England</option>
+                                <option>London</option>
+                                <option>North East</option>
+                                <option>North West</option>
+                                <option>South East</option>
+                                <option>South West</option>
+                                <option>West Midlands</option>
+                                <option>Yorkshire and The Humber</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label" for="filter-council-ruc">Rural/urban</label>
+                        <select class="form-select" id="filter-council-ruc">
+                            <option selected>All</option>
+                            <option>Rural</option>
+                            <option>Sparse and rural</option>
+                            <option>Urban</option>
+                            <option>Urban with rural areas</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label" for="filter-council-imd">Socio-economic index (IMD)</label>
+                        <select class="form-select" id="filter-council-imd">
+                            <option selected>All</option>
+                            <option>1 – most deprived</option>
+                            <option>2</option>
+                            <option>3</option>
+                            <option>4</option>
+                            <option>5 – least deprived</option>
+                        </select>
+                    </div>
+                </div>
+            </aside>
+
+            <header class="data-explorer__list__status">
+                <button class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2 js-toggle-filters">
+                    {%- include icons/filter.svg -%}
+                    Search &amp; filter
+                </button>
+                <p class="m-0">
+                    <span class="text-redacted">400</span>
+                    of
+                    <span class="text-redacted">400</span>
+                    councils
+                </p>
+            </header>
+
+            <div class="data-explorer__list__table">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+                            <th>Council</th>
+                            <th>Nature emergency</th>
+                            <th>Priority 1</th>
+                            <th>Priority 2</th>
+                            <th>Priority 3</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {%- for c in site.data.councils -%}
+                        <tr class="{% if c.council_slug == page.council_slug %}highlighted{% endif %}" data-council-slug="{{ c.council_slug }}" data-council-type="{{ c.council_type }}" data-council-nation="{{ c.council_nation }}" data-council-region="{{ c.council_region }}" data-council-ruc="{{ c.council_ruc }}" data-council-imd="{{ c.council_imd }}" data-council-data-council-ned="{{ c.ned }}" data-ned-date-passed="{{ c.ned_date_passed | date: '%Y' }}" data-priority-1="{{ c.priority_1 }}" data-priority-2="{{ c.priority_2 }}" data-priority-3="{{ c.priority_3 }}" aria-expanded="{% if c.council_slug == page.council_slug %}true{% else %}false{% endif %}">
+                            <td>
+                                <a href="{{ c.council_slug | prepend: 'councils/' | relative_url }}#councils">{{ c.council_name }}</a>
+                            </td>
+                            <td class="text-{% include declaration-color.html i=c.ned %}">
+                                {%- include declaration-tick-cross.html i=c.ned -%}
+                            {%- if c.ned_date_passed -%}
+                                {{- c.ned_date_passed | date: '%Y' -}}
+                            {%- endif -%}
+                            </td>
+                            <td class="text-{% include priority-color.html i=c.priority_1 %}">
+                                {%- include priority-tick-cross.html i=c.priority_1 -%}
+                            </td>
+                            <td class="text-{% include priority-color.html i=c.priority_2 %}">
+                                {%- include priority-tick-cross.html i=c.priority_2 -%}
+                            </td>
+                            <td class="text-{% include priority-color.html i=c.priority_3 %}">
+                                {%- include priority-tick-cross.html i=c.priority_3 -%}
+                            </td>
+                        </tr>
+                      {%- if c.council_slug == page.council_slug -%}
+                        {%- include council-expanded-tr.html council=c -%}
+                      {%- endif -%}
+                    {%- endfor -%}
+                    {%- for i in (1..50) -%}
+                        <tr>
+                            <td><a href="#" class="text-redacted">Some Other Council</a></td>
+                            <td class="text-danger">
+                                {%- include declaration-tick-cross.html i=0 -%}
+                            </td>
+                            <td class="text-danger">
+                                {%- include priority-tick-cross.html i=0 -%}
+                            </td>
+                            <td class="text-danger">
+                                {%- include priority-tick-cross.html i=0 -%}
+                            </td>
+                            <td class="text-danger">
+                                {%- include priority-tick-cross.html i=0 -%}
+                            </td>
+                        </tr>
+                    {%- endfor -%}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="container-xxl">
+    <div class="row my-5">
+        <div class="col-sm-6">
+            <h2 class="text-redacted">Felis bibendum ut tristique et</h2>
+            <p class="text-redacted">Placerat duis ultricies lacus sed turpis tincidunt id. Tristique senectus et netus et. Feugiat nisl pretium fusce id velit. Purus non enim praesent elementum facilisis leo vel fringilla. Facilisis sed odio morbi quis commodo odio. Erat imperdiet sed euismod nisi porta. Facilisis magna etiam tempor orci. Tristique magna sit amet purus gravida. Leo in vitae turpis massa.</p>
+            <a href="#">Find out more</a>
+        </div>
+    </div>
+    <div class="row my-5">
+        <div class="col-sm-6 offset-sm-6">
+            <h2 class="text-redacted">Ornare massa eget egestas purus</h2>
+            <p class="text-redacted">Venenatis cras sed felis eget velit aliquet. Et leo duis ut diam quam nulla porttitor massa id. Nulla aliquet enim tortor at auctor urna nunc id cursus. Suscipit adipiscing bibendum est ultricies integer quis auctor elit.</p>
+            <p class="text-redacted">Ultrices in iaculis nunc sed augue lacus. Velit scelerisque in dictum non consectetur a erat nam at. Elementum nisi quis eleifend quam adipiscing vitae. Mi proin sed libero enim sed faucibus turpis in eu.</p>
+            <a href="#">Find out more</a>
+        </div>
+    </div>
+</div>
+
+<template id="council-detail">
+    {% include council-expanded-tr.html %}
+</template>

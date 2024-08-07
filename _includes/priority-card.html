@@ -1,0 +1,17 @@
+{% assign priority_number = include.priority_number %}
+{% assign priority_value = include.priority_value %}
+{% assign priority_key = "priority_" | append: priority_number %}
+
+<div class="col-md-2">
+  <div class="d-flex flex-column align-items-center justify-content-evenly h-100 p-3 border text-center {% if priority_value == '1' %}border-success bg-green-100 text-success{% else %}border-danger bg-red-100 text-danger{% endif %}">
+    {% if priority_value %}
+      {%- include priority-tick-cross.html i=priority_value width="50" height="50" -%}
+      <dt class="small">{{ site.data.priorities[priority_key].short_description }}</dt>
+      {% if priority_value == "1" %}
+        <dd class="visually-hidden">{{ council.council_name }} meets the criteria</dd>
+      {% else %}
+        <dd class="visually-hidden">{{ council.council_name }} doesn't meets the criteria</dd>
+      {% endif %}
+    {% endif %}
+  </div>
+</div>
