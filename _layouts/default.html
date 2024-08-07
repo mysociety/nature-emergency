@@ -15,7 +15,11 @@
     <link rel="canonical" href="{{ page.canonical }}">
 </head>
 <body>
+    {% include header.html %}
+
     {{ content }}
+
+    {% include header.html %}
     <script src="{{ '/static/vendor/jquery/js/jquery-3.7.1.min.js' | relative_url }}"></script>
     <script src="{{ '/static/vendor/underscore/js/underscore-1.13.6.min.js' | relative_url }}"></script>
     <script src="{{ '/static/vendor/leaflet/js/leaflet-1.9.4.min.js' | relative_url }}"></script>
