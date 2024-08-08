@@ -2,32 +2,6 @@
 layout: default
 ---
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary border-bottom mb-3 mb-lg-4 mb-xl-5">
-    <div class="container-xxl">
-        <a class="navbar-brand text-redacted" href="{{ '/' | relative_url }}">nature emergency</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ '/about/' | relative_url }}">About this data</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Model motions</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Case studies</a>
-                </li>
-            </ul>
-            <form class="d-flex gap-2 ps-lg-2" role="search">
-                <input class="form-control" name="pc" type="search" placeholder="Find a council" aria-label="Find a council">
-                <button class="btn btn-outline-secondary d-flex align-items-center" type="submit" aria-label="search">{%- include icons/search.svg -%}</button>
-            </form>
-        </div>
-    </div>
-</nav>
-
 <div class="container-xxl">
     <div class="bg-light p-4 p-xl-5">
         <div style="max-width: 30em">
@@ -271,30 +245,6 @@ layout: default
         </div>
     </div>
 </div>
-
-<footer class="text-white bg-dark py-4 py-xl-5 mt-4 mt-xl-5">
-    <div class="container-xxl">
-        <div class="row mt-n3">
-            <div class="col-sm-6 col-md-4 mt-3">
-                <h2 class="text-redacted">nature emergency</h2>
-                <p class="text-redacted mb-0">Amet consectetur adipiscing elit ut. Malesuada bibendum arcu vitae elementum curabitur vitae nunc. Ornare massa eget egestas purus.</p>
-            </div>
-            <div class="col-sm-6 col-md-4 offset-md-4 mt-3">
-              <ul class="nav">
-                  <li class="nav-item">
-                      <a class="nav-link" href="{{ '/privacy' | relative_url }}">Privacy Policy</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link text-redacted" href="#">Some link</a>
-                  </li>
-                  <li class="nav-item">
-                      <a class="nav-link text-redacted" href="#">Another link</a>
-                  </li>
-              </ul>
-            </div>
-        </div>
-    </div>
-</footer>
 
 <template id="council-detail">
     {% include council-expanded-tr.html %}
