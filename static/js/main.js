@@ -27,13 +27,4 @@ $(function(){
     $('.js-toggle-filters').on('click', function(){
         $('.data-explorer__filters').toggleClass('active');
     });
-
-    var map = L.map( $('#map')[0] ).setView([54.5408, -2.8791], 7);
-    L.tileLayer(
-        'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-        {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }
-    ).addTo(map);
 });

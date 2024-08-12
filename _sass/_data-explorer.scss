@@ -1,11 +1,6 @@
 .data-explorer {
-    border: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color);
     border-radius: $border-radius;
     overflow: hidden; // crop contents to rounded corners
-}
-
-.data-explorer__map {
-    height: 50dvh;
 }
 
 .data-explorer__filters {
@@ -17,11 +12,6 @@
     }
 }
 
-.data-explorer__list {
-    // horizontal border between map (above) and filters/list (below)
-    border-top: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color);
-}
-
 @include media-breakpoint-up(lg) {
     html, body {
         scroll-snap-type: y proximity;
@@ -29,45 +19,28 @@
 
     .data-explorer {
         display: flex;
+        flex-direction: column;
         height: calc(100dvh - 4rem);
         scroll-snap-align: start;
         scroll-margin-top: 2rem;
     }
 
-    .data-explorer__map {
-        width: 40%;
-        height: 100%;
-        order: 2
-    }
-
-    .data-explorer__list {
-        width: 60%;
-        height: 100%;
-        order: 1;
-
-        display: flex;
-        flex-direction: column;
-
-        // vertical border between filters/list (left) and map (right)
-        border-right: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color);
-        border-top: none;
-    }
-
-    .data-explorer__list__table {
+    .data-explorer__table {
+        width: 100%;
         overflow: auto;
     }
 }
 
-.data-explorer__list__filters__primary,
-.data-explorer__list__filters__secondary {
+.data-explorer__filters__primary,
+.data-explorer__filters__secondary {
     margin-top: 1rem;
 
     display: grid;
-    grid-template-columns: repeat( auto-fit, minmax(225px, 1fr) );
+    grid-template-columns: repeat( auto-fit, minmax(250px, 1fr) );
     gap: 1rem;
 }
 
-.data-explorer__list__status {
+.data-explorer__status {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -77,7 +50,7 @@
     border-bottom: var(--#{$prefix}border-width) var(--#{$prefix}border-style) var(--#{$prefix}border-color);
 }
 
-.data-explorer__list__table {
+.data-explorer__table {
     thead {
         position: sticky;
         top: 0;
