@@ -1,0 +1,18 @@
+.form-control,
+.form-select {
+    &:focus {
+        box-shadow: 0 0 0 .2rem $wt-action, inset 0 0 0 1px $wt-accent;
+    }
+}
+
+// Darker borders for form controls.
+.form-control,
+.form-select,
+.form-check,
+.form-switch {
+    --#{$prefix}border-color: #{$wt-inactive};
+}
+
+.form-check-label {
+    font-weight: $form-label-font-weight;
+}

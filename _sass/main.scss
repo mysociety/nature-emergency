@@ -10,6 +10,9 @@
 @import "utilities";
 
 @include bsBanner("");
+
+@import "fonts";
+
 @import "bootstrap/scss/root";
 @import "bootstrap/scss/reboot";
 @import "bootstrap/scss/type";
@@ -18,12 +21,12 @@
 @import "bootstrap/scss/grid";
 @import "bootstrap/scss/tables";
 @import "bootstrap/scss/forms";
-@import "bootstrap/scss/buttons";
+// @import "bootstrap/scss/buttons";
 @import "bootstrap/scss/transitions";
 @import "bootstrap/scss/dropdown";
 @import "bootstrap/scss/button-group";
 @import "bootstrap/scss/nav";
-@import "bootstrap/scss/navbar";
+// @import "bootstrap/scss/navbar";
 @import "bootstrap/scss/card";
 @import "bootstrap/scss/accordion";
 // @import "bootstrap/scss/breadcrumb";
@@ -47,6 +50,11 @@
 @import "awesomplete/scss/base";
 // @import "awesomplete/scss/theme";
 
+@import "buttons";
+@import "links";
+@import "forms";
+@import "search-input";
+@import "header";
 @import "redacted";
 @import "data-explorer";
 @import "awesomplete-theme";

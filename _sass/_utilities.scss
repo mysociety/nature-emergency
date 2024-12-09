@@ -16,8 +16,6 @@ $gray-colors: ();
     );
 }
 
-$all-colors: map-merge-multiple($blues, $indigos, $purples, $pinks, $reds, $oranges, $yellows, $greens, $teals, $cyans, $gray-colors);
-
 $utilities: map-merge(
     $utilities,
     (
@@ -26,7 +24,7 @@ $utilities: map-merge(
             (
                 values: map-merge(
                     map-get(map-get($utilities, "color"), "values"),
-                    $all-colors,
+                    $gray-colors,
                 ),
             ),
         ),
@@ -35,7 +33,7 @@ $utilities: map-merge(
             (
                 values: map-merge(
                     map-get(map-get($utilities, "background-color"), "values"),
-                    $all-colors,
+                    $gray-colors,
                 ),
             ),
         ),
@@ -126,14 +124,10 @@ $utilities: map-merge(
 
 
 
-@each $color, $value in $all-colors {
+@each $color, $value in $gray-colors {
     $color-rgb: to-rgb($value);
     .text-bg-#{$color} {
         color: color-contrast($value) if($enable-important-utilities, !important, null);
         background-color: RGBA($color-rgb, var(--#{$prefix}bg-opacity, 1)) if($enable-important-utilities, !important, null);
     }
-}
-
-:root {
-    --#{$prefix}font-serif: #{inspect($font-family-serif)};
 }

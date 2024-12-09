@@ -1,0 +1,16 @@
+a:not(.btn, .dropdown-item, .nav-link, .wt-nav__brand, .stretched-link) {
+    text-decoration: none;
+    box-shadow: inset 0 -3px 0 $wt-accent;
+    background: transparent 50%;
+    background-size: 100%;
+    font-weight: $btn-font-weight;
+    transition: all 0.3s ease;
+
+    &:hover,
+    &:focus-visible,
+    &:active {
+        background: $wt-interaction;
+        box-shadow: none;
+        outline: none;
+    }
+}

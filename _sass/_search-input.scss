@@ -1,0 +1,45 @@
+.search-input {
+    position: relative;
+
+    button {
+        --#{$prefix}btn-border-radius: #{$btn-border-radius};
+
+        border: none;
+        background: none;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        color: var(--bs-accent);
+        padding: 0 $input-padding-x;
+        @include border-radius(var(--#{$prefix}btn-border-radius));
+        @include transition($btn-transition);
+
+        &:focus {
+            outline: none;
+            box-shadow: 0 0 0 .2rem $wt-action;
+            background: var(--bs-accent);
+            color: var(--bs-white);
+        }
+    }
+
+    &:has(.form-control-sm) button {
+        --#{$prefix}btn-border-radius: #{$btn-border-radius-sm};
+        font-size: $input-font-size-sm;
+        padding: 0 $input-padding-x-sm;
+    }
+
+    &:has(.form-control-lg) button {
+        --#{$prefix}btn-border-radius: #{$btn-border-radius-lg};
+        font-size: $input-font-size-lg;
+        padding: 0 $input-padding-x-lg;
+    }
+
+    .awesomplete {
+        display: block;
+    }
+}

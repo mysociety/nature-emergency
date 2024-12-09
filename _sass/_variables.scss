@@ -1,15 +1,109 @@
 // Color system
-$green: #126e43; // This one the text-success pass contrast test against bg-green-100
 
+// Woodland Trust’s brand colours.
+// https://zeroheight.com/1mad7sqgn/p/671be4-brand-palette
+$wt-shamrock: #A3CB3A;
+$wt-ash: #1DBB66;
+$wt-english-oak: #0D7D67;
+$wt-afon: #38B0C5;
+$wt-dune-slack: #7DD5D5;
+$wt-bluebells: #8F8AFB;
+$wt-ragged-robin: #FF9DC9;
+$wt-highland-cow: #FF7A08;
+$wt-common-gorse: #FFCB05;
+$wt-cairngorms: #891C23;
+$wt-spiked-speedwell: #2F3061;
+$wt-mud: #2B2B2A;
+$wt-white: #fff; // used for: primary button text
+$wt-black: #000; // used for: primary button background
+
+// Woodland Trust’s website colours, named by how they’re used.
+// https://zeroheight.com/1mad7sqgn/p/8341a8-main-website
+$wt-dark-text: #002419; // also used for: secondary button text, action button text, plain link text, nav background
+$wt-light-text: $wt-white; // also used for: secondary button background
+$wt-dark-bg: #04443C;
+$wt-v-dark-bg: $wt-mud;
+$wt-light-bg: #F4F7F5;
+$wt-inactive: #786F6F; // also used for: input borders
+$wt-utility: $wt-english-oak; // also used for: header background
+$wt-accent: #0DA459; // used for: checkboxes, radios, secondary button border, plain link underline
+$wt-interaction: #99EAC2;
+$wt-action: $wt-common-gorse; // used for: action (header) button background, focussed element outline
+$wt-action-bg: #00023F;
+$wt-error: #D2232A; // used for: invalid form element border
+$wt-facts-stats-data: #942B91;
+
+// For compatibility with Bootstrap styles that expect these variables,
+// even if we don’t plan on using them ourselves.
+$white: $wt-white;
+$black: $wt-black;
+$blue: #0d6efd;
+$indigo: #6610f2;
+$purple: $wt-facts-stats-data;
+$pink: $wt-ragged-robin;
+$red: $wt-error;
+$orange: $wt-highland-cow;
+$yellow: $wt-common-gorse;
+$green: $wt-english-oak;
+$teal: $wt-afon;
+$cyan: $wt-dune-slack;
+
+$primary: $wt-black;
+$secondary: $wt-action;
+$success: $wt-english-oak;
+$info: $wt-afon;
+$warning: $wt-highland-cow;
+$danger: $wt-error;
+$light: $wt-light-bg;
+$dark: $wt-dark-bg;
+
+$gray-100: $wt-light-bg;
+$gray-200: mix($wt-dark-text, $wt-light-bg, 10%);
+$gray-300: mix($wt-dark-text, $wt-light-bg, 20%);
+$gray-400: mix($wt-dark-text, $wt-light-bg, 35%);
+$gray-500: mix($wt-dark-text, $wt-light-bg, 50%);
+$gray-600: mix($wt-dark-text, $wt-light-bg, 65%);
+$gray-700: mix($wt-dark-text, $wt-light-bg, 80%);
+$gray-800: mix($wt-dark-text, $wt-light-bg, 90%);
+$gray-900: $wt-dark-text;
+$gray: $gray-500;
+
+$theme-colors: (
+  "primary": $wt-black,
+  "accent": $wt-accent,
+  "action": $wt-action,
+  "utility": $wt-utility,
+  "error": $wt-error,
+  "data": $wt-facts-stats-data,
+  "light": $wt-light-bg,
+  "dark": $wt-dark-bg
+);
 
 // Options
 
-$enable-shadows: true;
+$enable-shadows: false; // the default anyway (we don't want shadows inside form-controls, etc)
 $enable-negative-margins: true;
+
+$variable-prefix: "bs-";
+$prefix: $variable-prefix;
 
 // Gradient
 
 // Spacing
+
+// Adding a few extra spacers at the top end.
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: $spacer * .25,
+  2: $spacer * .5,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 3,
+  6: $spacer * 4.5,
+  7: $spacer * 6,
+  8: $spacer * 8
+);
 
 // Position
 
@@ -23,19 +117,79 @@ $enable-negative-margins: true;
 
 // Grid breakpoints
 
+// Remove xxl breakpoint, to match main WT website.
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
+
 // Grid containers
 
+// Remove xxl container width, to match main WT website.
+$container-max-widths: (
+  sm: 540px,
+  md: 720px,
+  lg: 960px,
+  xl: 1140px
+);
+
 // Grid columns
+
+$grid-gutter-width: 2rem;
 
 // Container padding
 
 // Components
 
+$box-shadow-sm: 0 3px 5px rgba($wt-black, 0.2);
+$box-shadow: 0 10px 20px rgba($wt-black, 0.15);
+$box-shadow-lg: 0 30px 40px rgba($wt-black, 0.15);
+$box-shadow-inset: inset 0 3px 5px rgba($wt-black, 0.2);
+
+$component-active-color: $wt-white;
+$component-active-bg: $wt-accent;
+
+$focus-ring-opacity: 1;
+$focus-ring-color: rgba($wt-action, $focus-ring-opacity);
+
+$border-radius-sm: 2px;
+$border-radius: 3px;
+$border-radius-lg: 4px;
+
 // Typography
 
-$font-family-serif: Georgia, Times, "Times New Roman", serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+$font-family-sans-serif: "Roboto Flex", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+$font-size-base: 1rem;
+$font-size-sm: $font-size-base * .875;
+
+// WT’s main website has larger H1 and H2 than Bootstrap defaults
+$h1-font-size: $font-size-base * 3.25;
+$h2-font-size: $font-size-base * 2.25;
+$h3-font-size: $font-size-base * 1.75;
+$h4-font-size: $font-size-base * 1.5;
+$h5-font-size: $font-size-base * 1.25;
+$h6-font-size: $font-size-base;
+
+$font-sizes: (
+  1: $h1-font-size,
+  2: $h2-font-size,
+  3: $h3-font-size,
+  4: $h4-font-size,
+  5: $h5-font-size,
+  6: $h6-font-size,
+  7: $font-size-sm,
+  8: $font-size-base * 0.75,
+  9: $font-size-base * 0.66,
+  10: $font-size-base * 0.5
+);
 
 $headings-font-weight: 700;
+
+$display-font-weight: 700;
 
 $blockquote-font-size: 1rem;
 
@@ -45,7 +199,32 @@ $blockquote-font-size: 1rem;
 
 // Buttons
 
+$btn-border-width: 3px;
+$btn-font-weight: 600;
+
 // Forms
+
+$form-label-font-weight: 600;
+
+$input-padding-y: 0.75rem;
+$input-padding-x: 1rem;
+
+$input-padding-y-sm: 0.33rem;
+$input-padding-x-sm: 0.5rem;
+
+$input-padding-y-lg: 1rem;
+$input-padding-x-lg: 1.25rem;
+
+$input-box-shadow: none;
+$form-select-box-shadow: none;
+$form-range-track-box-shadow: none;
+
+$input-focus-border-color: $wt-accent;
+
+$form-check-input-width: 1.25em;
+$form-check-padding-start: $form-check-input-width + 0.5em;
+$form-check-margin-bottom: 0.25rem;
+$form-check-input-border: 2px solid var(--#{$prefix}border-color);
 
 // Form validation
 
@@ -54,9 +233,6 @@ $blockquote-font-size: 1rem;
 // Navs
 
 // Navbar
-
-$navbar-padding-y: 1rem;
-$navbar-nav-link-padding-x: 1rem;
 
 // Dropdowns
 
@@ -81,6 +257,8 @@ $navbar-nav-link-padding-x: 1rem;
 // Alerts
 
 // Progress bars
+
+$progress-box-shadow: none;
 
 // List group
 

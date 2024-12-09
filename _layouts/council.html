@@ -3,7 +3,7 @@ layout: default
 ---
 {% assign council = site.data.councils | where: "council_slug", page.council_slug | first %}
 
-<div class="container-xxl">
+<div class="container">
 
   {% if council %}
     <h1 class="mb-5">{{ council.council_name }}</h1>
@@ -112,11 +112,11 @@ layout: default
         {% include priority-card.html priority_number=2 priority_value=council.priority_2 %}
         {% include priority-card.html priority_number=3 priority_value=council.priority_3 %}
         <div class="mt-3">
-          <a href="#" class="btn btn-sm btn-secondary" aria-label="Share on Twitter">
-            {%- include icons/twitter.svg classes=include.classes width=include.width height=include.height role=include.role width="16" height="16" classes="align-text-bottom" -%}
+          <a href="#" class="btn btn-sm btn-secondary">
+            Share on X
           </a>
-          <a href="#" class="btn btn-sm btn-secondary" aria-label="Share on Facebook">
-            {%- include icons/facebook.svg classes=include.classes width=include.width height=include.height role=include.role width="16" height="16" classes="align-text-bottom" -%}
+          <a href="#" class="btn btn-sm btn-secondary">
+            Share on Facebook
           </a>
         </div>
       </div>

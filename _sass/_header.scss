@@ -1,0 +1,193 @@
+$wt-nav-mobile-breakpoint: 'md'; // needs to match the container-* class in the HTML
+$wt-nav-mobile-padding: $spacer;
+
+.wt-nav {
+    background: var(--#{$prefix}utility);
+    color: var(--#{$prefix}white);
+
+    @include media-breakpoint-up($wt-nav-mobile-breakpoint) {
+        padding: map-get($spacers, 4) 0;
+    }
+
+    .container,
+    [class^="container-"] {
+        --#{$prefix}gutter-x: 0;
+
+        @include media-breakpoint-up($wt-nav-mobile-breakpoint) {
+            --#{$prefix}gutter-x: #{$container-padding-x};
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+    }
+}
+
+.wt-nav__primary {
+    display: flex;
+    align-items: center;
+}
+
+.wt-nav__secondary {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--#{$prefix}gray-900);
+    color: var(--#{$prefix}white);
+    padding: 0.5rem 0;
+
+    form {
+        margin: 0.5rem 1rem;
+    }
+
+    .nav {
+        --#{$prefix}nav-link-font-weight: 700;
+        --#{$prefix}nav-link-color: var(--#{$prefix}white);
+        --#{$prefix}nav-link-hover-color: var(--#{$prefix}white);
+        flex-direction: column;
+    }
+
+    .nav-link {
+        &:focus,
+        &:hover {
+            background-color: var(--#{$prefix}utility);
+        }
+    }
+
+    @include media-breakpoint-up($wt-nav-mobile-breakpoint) {
+        display: flex !important; // override .collapse:not(.show)
+        flex-direction: row;
+        align-items: center;
+        gap: $spacer;
+        background: transparent;
+
+        form {
+            margin: 0;
+        }
+
+        .nav {
+            flex-direction: row;
+            justify-content: flex-end;
+        }
+    }
+}
+
+.wt-nav__brand {
+    display: block;
+    height: 0;
+    white-space: nowrap;
+    overflow: hidden;
+
+    width: 168px;
+    padding-top: 36px;
+    background: transparent url('../img/wt-logo-horizontal.svg') 50% 50% no-repeat;
+    background-size: contain;
+
+    margin: $wt-nav-mobile-padding auto $wt-nav-mobile-padding $wt-nav-mobile-padding;
+
+    @include media-breakpoint-up(md) {
+        width: 114px;
+        padding-top: 72px;
+        background-image: url('../img/wt-logo.svg');
+        margin: 0;
+    }
+}
+
+.wt-nav__toggler {
+    background-color: var(--#{$prefix}gray-900);
+    color: var(--#{$prefix}white);
+    border: none;
+    padding: $wt-nav-mobile-padding 0;
+
+    font-size: 0.5rem;
+    line-height: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+
+    @include media-breakpoint-up($wt-nav-mobile-breakpoint) {
+        display: none;
+    }
+}
+
+.wt-nav__brand,
+.wt-nav__toggler {
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 .2rem $wt-action;
+    }
+}
+
+.wt-nav__toggler__show {
+    padding-top: 4px;
+    display: block;
+
+    [aria-expanded="true"] & {
+        display: none;
+    }
+}
+
+.wt-nav__toggler__hide {
+    padding-top: 4px;
+    display: none;
+
+    [aria-expanded="true"] & {
+        display: block;
+    }
+}
+
+.wt-nav__toggler__icon {
+    width: 20px;
+    height: 13px;
+    position: relative;
+    margin: 5px ($wt-nav-mobile-padding * 1.5);
+    cursor: pointer;
+
+    span {
+        display: block;
+        position: absolute;
+        height: 3px;
+        width: 100%;
+        background: currentColor;
+        opacity: 1;
+        left: 0;
+
+        &:nth-child(1) {
+            top: 0;
+        }
+
+        &:nth-child(2) {
+            top: 6px;
+        }
+
+        &:nth-child(3) {
+            top: 6px;
+        }
+
+        &:nth-child(4) {
+            top: 12px;
+        }
+    }
+
+    [aria-expanded="true"] & {
+        span {
+            &:nth-child(1) {
+                top: 18px;
+                width: 0%;
+                left: 50%;
+            }
+    
+            &:nth-child(2) {
+                transform: rotate(45deg);
+            }
+    
+            &:nth-child(3) {
+                transform: rotate(-45deg);
+            }
+    
+            &:nth-child(4) {
+                top: 18px;
+                width: 0%;
+                left: 50%;
+            }
+        }
+    }
+}

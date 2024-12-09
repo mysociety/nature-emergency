@@ -2,7 +2,7 @@
 layout: default
 ---
 
-<div class="container-xxl">
+<div class="container">
     <div class="bg-light p-4 p-xl-5">
         <div style="max-width: 30em">
             <h1 class="text-redacted">Lorem ipsum dolor sit amet, consectetur?</h1>
@@ -13,14 +13,14 @@ layout: default
                 <label class="form-label" for="pc">Find your council by name or postcode</label>
                 <div class="d-flex gap-3">
                     <input type="search" class="form-control form-control-lg" name="pc" id="pc">
-                    <button class="btn btn-lg btn-outline-secondary d-flex align-items-center" type="submit" aria-label="search">{%- include icons/search.svg -%}</button>
+                    <button class="btn btn-lg btn-action d-flex align-items-center" type="submit" aria-label="search">{%- include icons/search.svg -%}</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
 
-<div class="container-xxl my-4 my-xl-5">
+<div class="container my-4 my-xl-5">
     <div class="row mt-n3">
         <div class="col-6 col-lg-3 mt-3 d-flex">
             <div class="bg-light rounded p-3 p-lg-4 w-100 d-flex flex-column align-items-center justify-content-center text-center">
@@ -53,7 +53,7 @@ layout: default
     </div>
 </div>
 
-<div class="container-xxl my-4 my-xl-5" id="councils">
+<div class="container my-4 my-xl-5" id="councils">
 
     <h2 class="mb-3 mb-lg-4">Browse the scores</h2>
 
@@ -65,7 +65,7 @@ layout: default
                     <label class="form-label" for="filter-pc">Postcode or council name</label>
                     <div class="d-flex gap-3">
                         <input type="search" class="form-control" name="pc" id="filter-pc">
-                        <button class="btn btn-outline-secondary d-flex align-items-center" type="submit" aria-label="search">{% include icons/search.svg %}</button>
+                        <button class="btn btn-action d-flex align-items-center" type="submit" aria-label="search">{% include icons/search.svg %}</button>
                     </div>
                 </div>
             </div>
@@ -150,7 +150,7 @@ layout: default
         </aside>
 
         <header class="data-explorer__status">
-            <button class="btn btn-outline-primary btn-sm d-flex align-items-center gap-2 js-toggle-filters">
+            <button class="btn btn-secondary btn-sm d-flex align-items-center gap-2 js-toggle-filters">
                 {%- include icons/filter.svg -%}
                 Search &amp; filter
             </button>
@@ -222,7 +222,7 @@ layout: default
     </div>
 </div>
 
-<div class="container-xxl">
+<div class="container">
     <div class="row my-5">
         <div class="col-sm-6">
             <h2 class="text-redacted">Felis bibendum ut tristique et</h2>
