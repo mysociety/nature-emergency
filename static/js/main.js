@@ -1,7 +1,7 @@
 $(function(){
-    // console.log('jQuery ready')
-    // console.log('_.now()', _.now())
-    // console.log('bootstrap.Modal', bootstrap.Modal)
+    $('.scorecard__data__table').on('click', 'tbody tr', function(){
+        window.location = $(this).find('a').eq(0).attr('href');
+    });
 
     $('input[name="pc"]').each(function(){
         var $pc = $(this);
@@ -19,12 +19,7 @@ $(function(){
                 window.councils,
                 {'council_name': selection.text.value}
             );
-            // TODO: Update page in-place, rather than navigating away
             window.location = window.baseurl + '/councils/' + council.council_slug + '#councils';
         });
-    });
-
-    $('.js-toggle-filters').on('click', function(){
-        $('.data-explorer__filters').toggleClass('active');
     });
 });

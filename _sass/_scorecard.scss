@@ -1,0 +1,223 @@
+html:has(.scorecard),
+body:has(.scorecard) {
+    scroll-snap-type: y proximity;
+}
+
+.scorecard__filters {
+    background: var(--#{$prefix}gray-100);
+    border-radius: var(--#{$prefix}border-radius);
+
+    html.no-js & {
+        display: none;
+    }
+}
+
+.scorecard__filters__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: map-get($spacers, 3);
+    padding: map-get($spacers, 3);
+
+    @include media-breakpoint-up(md) {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    @include media-breakpoint-up(lg) {
+        padding: map-get($spacers, 4);
+    }
+}
+
+.scorecard__filters__detail {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: map-get($spacers, 3);
+    border-top: 2px solid var(--#{$prefix}body-bg);
+    padding: map-get($spacers, 3);
+
+    @include media-breakpoint-up(lg) {
+        padding: map-get($spacers, 4);
+        gap: map-get($spacers, 4);
+    }
+}
+
+.scorecard__summary {
+    display: grid;
+    gap: map-get($spacers, 3);
+    grid-template-columns: repeat(1, 1fr);
+    margin: map-get($spacers, 4) 0;
+
+    @include media-breakpoint-up(sm) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    @include media-breakpoint-up(md) {
+        gap: map-get($spacers, 4);
+    }
+
+    @include media-breakpoint-up(lg) {
+        margin: map-get($spacers, 5) 0;
+        gap: map-get($spacers, 5);
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    & > div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: map-get($spacers, 3);
+        border-radius: var(--#{$prefix}border-radius);
+
+        @include media-breakpoint-up(lg) {
+            padding: map-get($spacers, 4);
+        }
+    }
+}
+
+.scorecard__summary__tile {
+    position: relative;
+
+    svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        translate: -50% -50%;
+        height: 130%;
+        width: auto;
+        z-index: -1;
+    }
+
+    div {
+        max-width: 14em;
+    }
+}
+
+.scorecard__data {
+    background: var(--#{$prefix}gray-100);
+    border-radius: var(--#{$prefix}border-radius);
+    border: 1px solid var(--#{$prefix}border-color);
+
+    @include media-breakpoint-up(sm) {
+        display: flex;
+        flex-direction: column;
+        max-height: calc(100dvh - 4rem);
+        scroll-snap-align: start;
+        scroll-margin-top: 2rem;
+    }
+}
+
+.scorecard__data__header {
+    padding: map-get($spacers, 3);
+
+    @include media-breakpoint-up(md){
+        display: flex;
+        gap: map-get($spacers, 3);
+        align-items: center;
+
+        label {
+            margin-bottom: 0;
+        }
+
+        .search-input {
+            flex: 1 1 auto;
+            max-width: 20em;
+        }
+    }
+
+    body.no-js & {
+        display: none;
+    }
+}
+
+.scorecard__data__table {
+    @include media-breakpoint-up(sm) {
+        width: 100%;
+        overflow: auto;
+    }
+
+    table {
+        --cell-padding: 0.5rem;
+    
+        @include media-breakpoint-up(md) {
+            --cell-padding: 0.75rem;
+        }
+    
+        @include media-breakpoint-up(lg) {
+            --cell-padding: 1rem;
+        }
+    
+        thead {
+            position: sticky;
+            top: 0;
+            box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.05);
+        }
+    
+        & > :not(caption) > * > * {
+            padding: var(--cell-padding);
+        }
+    
+        th, td {
+            line-height: 1.2;
+        }
+
+        tr:has(a){
+            cursor: pointer;
+        }
+    
+        tr > :nth-child(2),
+        tr > :nth-child(3),
+        tr > :nth-child(4),
+        tr > :nth-child(5) {
+            width: 15%;
+        }
+
+        thead {
+            tr > :nth-child(2) {
+                --#{$prefix}table-bg: var(--#{$prefix}priority-0-200);
+            }
+
+            tr > :nth-child(3) {
+                --#{$prefix}table-bg: var(--#{$prefix}priority-1-100);
+            }
+
+            tr > :nth-child(4) {
+                --#{$prefix}table-bg: var(--#{$prefix}priority-2-100);
+            }
+
+            tr > :nth-child(5) {
+                --#{$prefix}table-bg: var(--#{$prefix}priority-3-100);
+            }
+        }
+
+        tbody {
+            tr > :nth-child(2) {
+                --#{$prefix}table-bg: var(--#{$prefix}priority-0-100);
+            }
+        }
+
+        a {
+            box-shadow: none;
+            color: inherit;
+            background: transparent !important; // override default link hover/focus background
+
+            &:focus-visible {
+                box-shadow: 0 0 0 .2rem $wt-action;
+            }
+        }
+
+        // Hover effects only if JS has made the rows clickable.
+        html.js & {
+            tr:has(td:hover) {
+                --bs-table-bg: $gray-100;
+            }
+
+            tbody tr:has(:hover) > :nth-child(2) {
+                --#{$prefix}table-bg: var(--#{$prefix}priority-0-200);
+            }
+        }
+    }
+}

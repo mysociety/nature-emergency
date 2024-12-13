@@ -1,8 +1,17 @@
 priority_1:
-  short_description: "Develop an evidence-based action plan for pushing nature into recovery"
+  id: 1
+  short_name: "evidence-based action plan"
+  description_imperative: "Develop an evidence-based action plan for pushing nature into recovery"
+  description_committed: "committed to develop an evidence-based action plan for pushing nature into recovery"
 
 priority_2:
-  short_description: "Embed nature’s recovery into all strategic plans and policy areas"
+  id: 2
+  short_name: "embedded in strategy"
+  description_imperative: "Embed nature’s recovery into all strategic plans and policy areas"
+  description_committed: "committed to embed nature’s recovery into all strategic plans and policy areas"
 
 priority_3:
-  short_description: "Protect and manage 30% of council landholdings for nature recovery by 2030"
+  id: 3
+  short_name: "30 by 30"
+  description_imperative: "Protect and manage 30% of council landholdings for nature recovery by 2030"
+  description_committed: "committed to protect and manage 30% of council landholdings for nature recovery by 2030"

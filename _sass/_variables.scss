@@ -33,6 +33,14 @@ $wt-action-bg: #00023F;
 $wt-error: #D2232A; // used for: invalid form element border
 $wt-facts-stats-data: #942B91;
 
+// Custom colours for the three (or four) NED priorities.
+$priority-colors: (
+  0: $wt-accent,
+  1: $wt-ragged-robin,
+  2: $wt-highland-cow,
+  3: $wt-common-gorse,
+);
+
 // For compatibility with Bootstrap styles that expect these variables,
 // even if we don’t plan on using them ourselves.
 $white: $wt-white;
@@ -73,6 +81,7 @@ $theme-colors: (
   "accent": $wt-accent,
   "action": $wt-action,
   "utility": $wt-utility,
+  "success": $success,
   "error": $wt-error,
   "data": $wt-facts-stats-data,
   "light": $wt-light-bg,

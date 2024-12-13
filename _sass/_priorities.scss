@@ -1,0 +1,47 @@
+:root {
+    @each $key, $value in $priority-colors {
+        --#{$prefix}priority-#{$key}: #{$value};
+        --#{$prefix}priority-#{$key}-100: #{mix($value, $wt-white, 10%)};
+        --#{$prefix}priority-#{$key}-200: #{mix($value, $wt-white, 20%)};
+    }
+}
+
+@each $key, $value in $priority-colors {
+    .text-bg-priority-#{$key} {
+        background-color: var(--#{$prefix}priority-#{$key}) !important;
+        color: $wt-black !important;
+    }
+
+    .bg-priority-#{$key} {
+        background-color: var(--#{$prefix}priority-#{$key}) !important;
+    }
+
+    .bg-priority-#{$key}-100 {
+        background-color: var(--#{$prefix}priority-#{$key}-100) !important;
+    }
+
+    .bg-priority-#{$key}-200 {
+        background-color: var(--#{$prefix}priority-#{$key}-200) !important;
+    }
+
+    .text-priority-#{$key} {
+        color: var(--#{$prefix}priority-#{$key}) !important;
+    }
+
+    .text-priority-#{$key}-100 {
+        color: var(--#{$prefix}priority-#{$key}-100) !important;
+    }
+
+    .text-priority-#{$key}-200 {
+        color: var(--#{$prefix}priority-#{$key}-200) !important;
+    }
+}
+
+.priority-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2em;
+    height: 2em;
+    border-radius: 100%;
+}
