@@ -3,46 +3,6 @@ body:has(.scorecard) {
     scroll-snap-type: y proximity;
 }
 
-.scorecard__filters {
-    background: var(--#{$prefix}gray-100);
-    border-radius: var(--#{$prefix}border-radius);
-
-    html.no-js & {
-        display: none;
-    }
-}
-
-.scorecard__filters__header {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: map-get($spacers, 3);
-    padding: map-get($spacers, 3);
-
-    @include media-breakpoint-up(md) {
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-    }
-
-    @include media-breakpoint-up(lg) {
-        padding: map-get($spacers, 4);
-    }
-}
-
-.scorecard__filters__detail {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: map-get($spacers, 3);
-    border-top: 2px solid var(--#{$prefix}body-bg);
-    padding: map-get($spacers, 3);
-
-    @include media-breakpoint-up(lg) {
-        padding: map-get($spacers, 4);
-        gap: map-get($spacers, 4);
-    }
-}
-
 .scorecard__summary {
     display: grid;
     gap: map-get($spacers, 3);
@@ -110,26 +70,36 @@ body:has(.scorecard) {
     }
 }
 
-.scorecard__data__header {
+.scorecard__data__header,
+.scorecard__data__filters {
     padding: map-get($spacers, 3);
-
-    @include media-breakpoint-up(md){
-        display: flex;
-        gap: map-get($spacers, 3);
-        align-items: center;
-
-        label {
-            margin-bottom: 0;
-        }
-
-        .search-input {
-            flex: 1 1 auto;
-            max-width: 20em;
-        }
-    }
+    border-bottom: 1px solid var(--#{$prefix}border-color);
 
     body.no-js & {
-        display: none;
+        display: none !important;
+    }
+}
+
+.scorecard__data__header {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: map-get($spacers, 3);
+
+    @include media-breakpoint-up(md) {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.scorecard__data__filters {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: map-get($spacers, 3);
+
+    @include media-breakpoint-up(lg) {
+        gap: map-get($spacers, 4);
     }
 }
 
@@ -209,15 +179,81 @@ body:has(.scorecard) {
             }
         }
 
+        tr.highlight {
+            --#{$prefix}table-bg: #{mix($wt-common-gorse, #fff, 20%)};
+
+            & > :nth-child(2) {
+                --#{$prefix}table-bg: #{mix($wt-common-gorse, #eee, 20%)};
+            }
+        }
+
         // Hover effects only if JS has made the rows clickable.
         html.js & {
             tr:has(td:hover) {
-                --bs-table-bg: $gray-100;
+                --#{$prefix}table-bg: #{$gray-100};
             }
 
             tbody tr:has(:hover) > :nth-child(2) {
                 --#{$prefix}table-bg: var(--#{$prefix}priority-0-200);
             }
+
+            tr.highlight:has(td:hover) {
+                --#{$prefix}table-bg: #{mix($wt-common-gorse, #fff, 33%)};
+    
+                & > :nth-child(2) {
+                    --#{$prefix}table-bg: #{mix($wt-common-gorse, #eee, 33%)};
+                }
+            }
         }
+    }
+
+    // Hide rows that fail to match any one or more of the applied filters.
+    // Doing this via CSS is much quicker than looping through rows in JavaScript.
+    [data-filters*="council-type-stc"] tbody tr:not([data-council-type="STC"]),
+    [data-filters*="council-type-cty"] tbody tr:not([data-council-type="CTY"]),
+    [data-filters*="council-type-dis"] tbody tr:not([data-council-type="DIS"]),
+    [data-filters*="nation-england"] tbody tr:not([data-nation="England"]),
+    [data-filters*="nation-scotland"] tbody tr:not([data-nation="Scotland"]),
+    [data-filters*="nation-wales"] tbody tr:not([data-nation="Wales"]),
+    [data-filters*="nation-northern-ireland"] tbody tr:not([data-nation="Northern Ireland"]),
+    [data-filters*="region-east-midlands"] tbody tr:not([data-region="East Midlands"]),
+    [data-filters*="region-east-of-england"] tbody tr:not([data-region="East of England"]),
+    [data-filters*="region-london"] tbody tr:not([data-region="London"]),
+    [data-filters*="region-north-east"] tbody tr:not([data-region="North East"]),
+    [data-filters*="region-north-west"] tbody tr:not([data-region="North West"]),
+    [data-filters*="region-south-east"] tbody tr:not([data-region="South East"]),
+    [data-filters*="region-south-west"] tbody tr:not([data-region="South West"]),
+    [data-filters*="region-west-midlands"] tbody tr:not([data-region="West Midlands"]),
+    [data-filters*="region-yorkshire-and-the-humber"] tbody tr:not([data-region="Yorkshire and The Humber"]),
+    [data-filters*="ruc-rural"] tbody tr:not([data-ruc="Rural"]),
+    [data-filters*="ruc-sparse-and-rural"] tbody tr:not([data-ruc="Sparse and rural"]),
+    [data-filters*="ruc-urban"] tbody tr:not([data-ruc="Urban"]),
+    [data-filters*="ruc-urban-with-rural-areas"] tbody tr:not([data-ruc="Urban with rural areas"]),
+    [data-filters*="imd-1"] tbody tr:not([data-imd="1"]),
+    [data-filters*="imd-2"] tbody tr:not([data-imd="2"]),
+    [data-filters*="imd-3"] tbody tr:not([data-imd="3"]),
+    [data-filters*="imd-4"] tbody tr:not([data-imd="4"]),
+    [data-filters*="imd-5"] tbody tr:not([data-imd="5"]),
+    [data-filters*="has-ned"] tbody tr:not([data-ned="1"]),
+    [data-filters*="has-no-ned"] tbody tr:not([data-ned="0"]),
+    [data-filters*="has-priority-1"] tbody tr:not([data-priority-1="1"]),
+    [data-filters*="has-priority-2"] tbody tr:not([data-priority-2="1"]),
+    [data-filters*="has-priority-3"] tbody tr:not([data-priority-3="1"]),
+    [data-filters*="ned-year-2024"] tbody tr:not([data-ned-year="2024"]),
+    [data-filters*="ned-year-2023"] tbody tr:not([data-ned-year="2023"]),
+    [data-filters*="ned-year-2022"] tbody tr:not([data-ned-year="2022"]),
+    [data-filters*="ned-year-2021"] tbody tr:not([data-ned-year="2021"]),
+    [data-filters*="ned-year-2020"] tbody tr:not([data-ned-year="2020"]),
+    [data-filters*="ned-year-2019"] tbody tr:not([data-ned-year="2019"]),
+    [data-filters*="ned-year-2018"] tbody tr:not([data-ned-year="2018"]) {
+        display: none;
+    }
+}
+
+.scorecard__summary__tile__of-matches {
+    display: none;
+
+    .scorecard:has([data-filters]) & {
+        display: block;
     }
 }
