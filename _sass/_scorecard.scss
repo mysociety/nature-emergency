@@ -234,7 +234,7 @@ body:has(.scorecard) {
     [data-filters*="imd-3"] tbody tr:not([data-imd="3"]),
     [data-filters*="imd-4"] tbody tr:not([data-imd="4"]),
     [data-filters*="imd-5"] tbody tr:not([data-imd="5"]),
-    [data-filters*="has-ned"] tbody tr:not([data-ned="1"]),
+    [data-filters*="has-ned"] tbody tr[data-ned="0"],
     [data-filters*="has-no-ned"] tbody tr:not([data-ned="0"]),
     [data-filters*="has-priority-1"] tbody tr:not([data-priority-1="1"]),
     [data-filters*="has-priority-2"] tbody tr:not([data-priority-2="1"]),
