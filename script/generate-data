@@ -1,0 +1,424 @@
+#!/usr/bin/env python3
+
+import argparse
+import re
+import string
+import sys
+from bs4 import BeautifulSoup
+import dateutil
+from mysoc_dataset import get_dataset_df
+import pandas as pd
+
+
+# Map output column slugs to input column indexes
+COLUMNS = {
+    "row_no": 0,
+    "council_name": 1,
+    "ced_date_passed": 5,
+    "ced": 6,
+    "ced_url": 7,
+    "ned": 8,
+    "ned_url": 9,
+    "ned_date_passed": 10,
+    "ned_where_passed": 11,
+    "ned_exact_wording": 13,
+    "priority_1": 14,
+    "priority_2": 16,
+    "priority_3": 18,
+}
+
+
+def col_index(slug):
+    return COLUMNS[slug]
+
+
+def col_letter(slug):
+    return chr(col_index(slug) + 96).upper()
+
+
+# Case-insensitive match, gracefully handling None input.
+def contains(haystack, needle):
+    try:
+        return needle.lower() in haystack.lower()
+    except AttributeError:
+        return False
+
+
+# Case-insensitive match, gracefully handling None input.
+def matches(haystack, needle):
+    try:
+        return needle.lower() == haystack.lower()
+    except AttributeError:
+        return False
+
+
+def warn(message):
+    print(message, file=sys.stderr)
+
+
+def simplify_council_name(name):
+    name = name.lower()
+    for b in ["council", "unitary"]:
+        name = name.replace(b, "")
+    for p in string.punctuation + string.whitespace:
+        name = name.replace(p, "")
+    return name
+
+
+def slugify(text):
+    return re.sub(r'\W+', '-', text).strip('-').lower()
+
+
+def extract_councils_data(input_file):
+    with open(input_file, "r", encoding="utf-8") as file:
+        html_content = file.read()
+
+    # Google Sheets output seems to include lots of zero-width spaces,
+    # which mess up the .trim() calls later on. So just remove them.
+    html_content = re.sub(r"^\s+|\s+$|[\u200B-\u200D\uFEFF]", "", html_content)
+    soup = BeautifulSoup(html_content, "html.parser")
+
+    councils_data = []
+
+    for row in soup.find("table").find("tbody").find_all("tr"):
+        row_data = extract_data_from_row(row)
+        if row_data:
+            councils_data.append(row_data)
+
+    # Warn on duplicate councils.
+    council_names = {}
+    for row in councils_data:
+        n = row["council_name"]
+        council_names[n] = council_names.get(n, 0) + 1
+    for name, count in council_names.items():
+        if count > 1:
+            warn(f"Error: {name} appears more than once in the input file ({count} times)")
+
+    return councils_data
+
+
+def extract_data_from_row(row):
+    cols = list(row.children)
+    row_no = extract_text_from_cell(cols[0])
+    council_name = extract_text_from_cell(cols[1])
+
+    # Skip rows without at least a council name.
+    if not council_name:
+        return None
+
+    # Skip first line (starts with the "Council" column header)
+    if council_name == "Council":
+        return None
+
+    row_data = {
+        "council_name": council_name,
+        "ced": 0,
+        "ced_date_passed": None,
+        "ced_url": None,
+        "ned": 0,
+        "ned_date_passed": None,
+        "ned_url": None,
+        "ned_where_passed": None,
+        "ned_exact_wording": None,
+        "priority_1": 0,
+        "priority_2": 0,
+        "priority_3": 0,
+    }
+
+    # If council_name includes a parenthetical (eg: "Cumberland Council (new 2023)")
+    # remove it, and any trailing whitespace that’s left over.
+    row_data["council_name"] = row_data["council_name"].split('(')[0].strip()
+
+    ned = extract_text_from_cell(
+        cols[col_index("ned")]
+    )
+
+    if contains(ned, "motion"):
+        row_data["ned"] = 3
+    elif contains(ned, "joint declaration"):
+        row_data["ned"] = 2
+    elif contains(ned, "yes"):
+        row_data["ned"] = 1
+    elif contains(ned, "no"):
+        row_data["ned"] = 0
+    else:
+        warn(f"Error in cell {col_letter("ced")}{row_no}: Expected cell to contain `joint declaration`, `motion`, `Yes`, or `No`, found `{ned}`.")
+
+    if row_data["ned"] in [1, 2, 3]:
+        row_data["ned_date_passed"] = extract_date_from_cell(
+            cols[col_index("ned_date_passed")],
+            col_letter("ned_date_passed"),
+            row_no
+        )
+
+        row_data["ned_url"] = extract_link_url_from_cell(
+            cols[col_index("ned_url")]
+        )
+
+        row_data["ned_where_passed"] = extract_text_from_cell(
+            cols[col_index("ned_where_passed")]
+        )
+
+        row_data["ned_exact_wording"] = extract_text_from_cell(
+            cols[col_index("ned_exact_wording")]
+        )
+
+        for priority_no in ["priority_1", "priority_2", "priority_3"]:
+            text = extract_text_from_cell(
+                cols[col_index(priority_no)]
+            )
+
+            if matches(text, "maybe/unsure"):
+                row_data[priority_no] = 2
+            elif matches(text, "yes"):
+                row_data[priority_no] = 1
+            elif matches(text, "no"):
+                row_data[priority_no] = 0
+            else:
+                warn(f"Error in cell {col_letter(priority_no)}{row_no}: Expected `Yes`, `No`, or `Maybe/Unsure`, found `{text}`.")
+
+    ced = extract_text_from_cell(
+        cols[col_index("ced")]
+    )
+
+    if contains(ned, "joint declaration"):
+        row_data["ced"] = 2
+    elif matches(ced, "y"):
+        row_data["ced"] = 1
+    elif matches(ced, "n"):
+        row_data["ced"] = 0
+    else:
+        warn(f"Error in cell {col_letter("ced")}{row_no}: Expected `Y` or `N`, found `{ced}`.")
+
+    if row_data["ced"] in [1, 2]:
+        row_data["ced_date_passed"] = extract_date_from_cell(
+            cols[col_index("ced_date_passed")],
+            col_letter("ced_date_passed"),
+            row_no
+        )
+
+        row_data["ced_url"] = extract_link_url_from_cell(
+            cols[col_index("ced_url")]
+        )
+
+    return row_data
+
+
+def extract_text_from_cell(cell, none_values=['n/a', 'na']):
+    text = cell.text.strip()
+    if none_values and text.lower() in none_values:
+        return None
+    else:
+        return text
+
+
+def extract_date_from_cell(cell, col_no, row_no):
+    text = extract_text_from_cell(cell)
+
+    if text == '' or text is None:
+        return None
+
+    try:
+        ced_date_passed = dateutil.parser.parse(text).strftime('%Y-%m-%d')
+    except ValueError as e:
+        warn(f"Error in cell {col_no}{row_no}: Could not parse date from `{text}`: {e}.")
+        return None
+
+    return ced_date_passed
+
+
+def extract_link_url_from_cell(cell):
+    a = cell.find('a')
+
+    if a is None:
+        return None
+
+    return a.get('href')
+
+
+def enrich_councils_data(councils_data):
+    # Convert list of dicts into Pandas DataFrame, to make joining easy.
+    councils = pd.DataFrame(councils_data)
+    # Prevent Pandas from turning our integer shorthands into floats.
+    councils = councils.astype({
+        "ced": "int",
+        "ned": "int",
+        "priority_1": "int",
+        "priority_2": "int",
+        "priority_3": "int",
+    })
+    # Add a temporary column for matching against Three Letter Code.
+    councils["council_name_simplified"] = councils["council_name"].apply(simplify_council_name)
+
+    # This DataFrame maps from simplified council names to Three Letter Code ("local-authority-code").
+    name_to_tlc = get_dataset_df(
+        repo_name="uk_local_authority_names_and_codes",
+        package_name="uk_la_future",
+        version_name="latest",
+        file_name="lookup_name_to_registry.csv",
+        done_survey=True,
+    )
+    name_to_tlc["la-name"] = name_to_tlc["la-name"].apply(simplify_council_name)
+
+    # Special handling for replaced/new councils.
+    # TODO: We really shouldn’t have to do this. Can Alex update the source CSV to include new councils?
+    tlcs_dissolved_2023 = [
+        "ALL",  # Allerdale Borough Council
+        "BAR",  # Barrow-in-Furness Borough Council
+        "CAR",  # Carlisle City Council
+        "CMA",  # Cumbria County Council
+        "COP",  # Copeland Borough Council
+        "CRA",  # Craven District Council
+        "EDN",  # Eden District Council
+        "HAE",  # Hambleton District Council
+        "HAG",  # Harrogate Borough Council
+        "MEN",  # Mendip District Council
+        "NYK",  # North Yorkshire County Council
+        "RIH",  # Richmondshire District Council
+        "RYE",  # Ryedale District Council
+        "SCE",  # Scarborough Borough Council
+        "SEG",  # Sedgemoor District Council
+        "SEL",  # Selby District Council
+        "SLA",  # South Lakeland District Council
+        "SOM",  # Somerset County Council
+        "SSO",  # South Somerset District Council
+        "SWT",  # Somerset West and Taunton Council
+    ]
+    councils_new_since_2023 = pd.DataFrame(
+        [
+            ["CBD", simplify_council_name("Cumberland Council")],
+            ["NYE", simplify_council_name("North Yorkshire Council")],
+            ["SMT", simplify_council_name("Somerset Council")],
+            ["WAF", simplify_council_name("Westmorland and Furness Council")],
+            ["YNYC", simplify_council_name("York and North Yorkshire Mayoral Combined Authority")],
+            ["YNYC", simplify_council_name("York and North Yorkshire Combined Authority")],
+            ["EMCA", simplify_council_name("East Midlands Combined County Authority")],
+            ["EMCA", simplify_council_name("East Midlands County Combined Authority")],
+            ["EMCA", simplify_council_name("East Midlands Combined Authority")],
+        ],
+        columns=["local-authority-code", "la-name"]
+    )
+    name_to_tlc = name_to_tlc[~name_to_tlc["local-authority-code"].isin(tlcs_dissolved_2023)]
+    name_to_tlc = pd.concat([name_to_tlc, councils_new_since_2023], ignore_index=True)
+
+    # Because we’re simplifying the council names, sometimes we’ll simplify
+    # two or more rows into being basically identical. Leaving these duplicates
+    # in the DataFrame will cause duplication when we join later, so remove them.
+    name_to_tlc.drop_duplicates(inplace=True)
+
+    # Add TLC ("local-authority-code") to councils DataFrame.
+    councils = councils.join(name_to_tlc.set_index("la-name"), on="council_name_simplified")
+
+    # Warn if any councils are missing a local-authority-code
+    for i, row in councils.iterrows():
+        if pd.isna(row["local-authority-code"]) or row["local-authority-code"] == '':
+            warn(f"{row["council_name"]} has no `local-authority-code`.")
+
+    # Add a handful of other useful codes and values for each council.
+    codes = get_dataset_df(
+        repo_name="uk_local_authority_names_and_codes",
+        package_name="uk_la_future",
+        version_name="latest",
+        file_name="uk_local_authorities_future.csv",
+        done_survey=True,
+    )
+    codes = codes.filter(items=[
+        "local-authority-code",
+        "gss-code",
+        "local-authority-type",
+        "nation",
+        "region",
+    ])
+    councils = councils.join(codes.set_index("local-authority-code"), on="local-authority-code")
+
+    # Add RUC data for each council.
+    ruc_profiles = get_dataset_df(
+        repo_name="local-authority-similarity",
+        package_name="ruc_distance",
+        version_name="latest",
+        file_name="la_labels.csv",
+        done_survey=True,
+    )
+    ruc_profiles.rename(columns={
+        "label": "council_ruc"
+    }, inplace=True)
+    councils = councils.join(ruc_profiles.set_index("local-authority-code"), on="local-authority-code")
+
+    # Add IMD data for each council.
+    imd_quintiles = get_dataset_df(
+        repo_name="local-authority-similarity",
+        package_name="imd_distance",
+        version_name="latest",
+        file_name="la_labels.csv",
+        done_survey=True,
+    )
+    imd_quintiles.rename(columns={
+        "label": "council_imd"
+    }, inplace=True)
+    councils = councils.join(imd_quintiles.set_index("local-authority-code"), on="local-authority-code")
+
+    # Add council_slug for each council.
+    councils["council_slug"] = councils.apply(lambda row: slugify(row["council_name"]), axis=1)
+
+    councils.rename(columns={
+        "gss-code": "council_gss",
+        "local-authority-type": "council_type",
+        "nation": "council_nation",
+        "region": "council_region",
+    }, inplace=True)
+
+    return councils.filter(items=[
+        "council_name",
+        "council_slug",
+        "council_gss",
+        "council_type",
+        "council_nation",
+        "council_region",
+        "council_ruc",
+        "council_imd",
+        "ced",
+        "ced_date_passed",
+        "ced_url",
+        "ned",
+        "ned_date_passed",
+        "ned_url",
+        "ned_where_passed",
+        "ned_exact_wording",
+        "priority_1",
+        "priority_2",
+        "priority_3",
+    ]).to_dict("records")
+
+
+def write_councils_data(councils_data, output_file):
+    df = pd.DataFrame(councils_data)
+    df.to_csv(output_file, index=False)
+    print(f"{len(councils_data)} councils written to {output_file}")
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Convert Google Sheets HTML export to clean data CSV."
+    )
+    parser.add_argument(
+        "-i",
+        "--input",
+        required=True,
+        help="Path to the input HTML file"
+    )
+    parser.add_argument(
+        "-o",
+        "--output",
+        required=True,
+        help="Path to the output CSV file"
+    )
+
+    args = parser.parse_args()
+
+    councils_data = extract_councils_data(args.input)
+    enriched_data = enrich_councils_data(councils_data)
+    write_councils_data(enriched_data, args.output)
+
+
+if __name__ == "__main__":
+    main()

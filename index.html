@@ -135,11 +135,11 @@ layout: default
                     <label class="form-label" for="filter-council-imd">Socio-economic index (IMD)</label>
                     <select class="form-select" id="filter-council-imd">
                         <option value="" selected>All</option>
-                        <option value="imd-1">1 – most deprived</option>
-                        <option value="imd-2">2</option>
-                        <option value="imd-3">3</option>
-                        <option value="imd-4">4</option>
-                        <option value="imd-5">5 – least deprived</option>
+                        <option value="imd-1">1st IMD quintile – most deprived</option>
+                        <option value="imd-2">2nd IMD quintile</option>
+                        <option value="imd-3">3rd IMD quintile</option>
+                        <option value="imd-4">4th IMD quintile</option>
+                        <option value="imd-5">5th IMD quintile – least deprived</option>
                     </select>
                 </div>
                 <div>
@@ -199,7 +199,7 @@ layout: default
                     </thead>
                     <tbody>
                     {%- for c in site.data.councils -%}
-                        <tr data-council-slug="{{ c.council_slug }}" data-council-type="{% include simplified-council-type.html council_type=c.council_type %}" data-nation="{{ c.council_nation }}" data-region="{{ c.council_region }}" data-ruc="{{ c.council_ruc }}" data-imd="{{ c.council_imd }}" data-ned="{{ c.ned }}" data-ned-year="{{ c.ned_date_passed | date: '%Y' }}" data-priority-1="{{ c.priority_1 }}" data-priority-2="{{ c.priority_2 }}" data-priority-3="{{ c.priority_3 }}">
+                        <tr data-council-slug="{{ c.council_slug }}" data-council-type="{% include simplified-council-type.html council_type=c.council_type %}" data-nation="{{ c.council_nation }}" data-region="{{ c.council_region }}" data-ruc="{{ c.council_ruc }}" data-imd="{{ c.council_imd|slice:0 }}" data-ned="{{ c.ned }}" data-ned-year="{{ c.ned_date_passed | date: '%Y' }}" data-priority-1="{{ c.priority_1 }}" data-priority-2="{{ c.priority_2 }}" data-priority-3="{{ c.priority_3 }}">
                             <td>
                                 <a href="{{ c.council_slug | prepend: 'councils/' | relative_url }}">{{ c.council_name }}</a>
                             </td>
@@ -217,23 +217,6 @@ layout: default
                             </td>
                             <td class="text-{% include priority-color.html i=c.priority_3 %}">
                                 {%- include priority-tick-cross.html i=c.priority_3 -%}
-                            </td>
-                        </tr>
-                    {%- endfor -%}
-                    {%- for i in (1..50) -%}
-                        <tr>
-                            <td><a href="#" class="text-redacted">Some Other Council</a></td>
-                            <td class="text-error">
-                                {%- include declaration-tick-cross.html i=0 -%}
-                            </td>
-                            <td class="text-error">
-                                {%- include priority-tick-cross.html i=0 -%}
-                            </td>
-                            <td class="text-error">
-                                {%- include priority-tick-cross.html i=0 -%}
-                            </td>
-                            <td class="text-error">
-                                {%- include priority-tick-cross.html i=0 -%}
                             </td>
                         </tr>
                     {%- endfor -%}
