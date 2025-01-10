@@ -1,0 +1,79 @@
+#!/usr/bin/env python3
+
+import argparse
+from mysoc_dataset import get_dataset_df
+import pandas as pd
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Generate a CSV of council similarities, by GSS code."
+    )
+    parser.add_argument(
+        "-o",
+        "--output",
+        required=True,
+        help="Path to the output CSV file"
+    )
+
+    args = parser.parse_args()
+
+    similarities = get_dataset_df(
+        repo_name="local-authority-similarity",
+        package_name="composite_distance",
+        version_name="latest",
+        file_name="distance_map.csv",
+        done_survey=True,
+    )
+
+    councils = get_dataset_df(
+        repo_name="uk_local_authority_names_and_codes",
+        package_name="uk_la_future",
+        version_name="latest",
+        file_name="uk_local_authorities_future.csv",
+        done_survey=True,
+    )
+    # Drop all but the TLC and GSS columns.
+    councils = councils.filter(items=["local-authority-code", "gss-code"])
+
+    merged_a = similarities.merge(
+        councils,
+        left_on="local-authority-code_A",
+        right_on="local-authority-code",
+        how="left",
+    )
+    merged_a = merged_a.drop(columns=["local-authority-code"])
+    merged_a = merged_a.rename(columns={"gss-code": "gss_a"})
+
+    merged_b = similarities.merge(
+        councils,
+        left_on="local-authority-code_B",
+        right_on="local-authority-code",
+        how="left",
+    )
+    merged_b = merged_b.drop(columns=["local-authority-code"])
+    merged_b = merged_b.rename(columns={"gss-code": "gss_b"})
+
+    # Combine the two merged DataFrames
+    result = pd.concat([merged_a, merged_b[["gss_b"]]], axis=1)
+
+    # Select just the columns we need, and round the floating point numbers
+    result = result[["gss_a", "gss_b", "match"]]
+    result["match"] = result["match"].round(1)
+
+    # Group by gss code and get the 10 rows with the highest "match" for each code.
+    # We explicitly re-select columns after groupby to bypass this deprecation:
+    # https://stackoverflow.com/questions/77969964/
+    result_filtered = result.groupby(
+        "gss_a",
+        as_index=False,
+    )[["gss_a", "gss_b", "match"]].apply(
+        lambda x: x.nlargest(10, "match")
+    )
+
+    result_filtered.to_csv(args.output, index=False)
+    print(f"{len(result_filtered)} similarities written to {args.output}")
+
+
+if __name__ == "__main__":
+    main()
