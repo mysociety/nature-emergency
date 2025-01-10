@@ -211,7 +211,7 @@ body:has(.scorecard) {
     // Doing this via CSS is much quicker than looping through rows in JavaScript.
     [data-filters*="council-type-stc"] tbody tr:not([data-council-type="STC"]),
     [data-filters*="council-type-cty"] tbody tr:not([data-council-type="CTY"]),
-    [data-filters*="council-type-dis"] tbody tr:not([data-council-type="DIS"]),
+    [data-filters*="council-type-nmd"] tbody tr:not([data-council-type="NMD"]),
     [data-filters*="nation-england"] tbody tr:not([data-nation="England"]),
     [data-filters*="nation-scotland"] tbody tr:not([data-nation="Scotland"]),
     [data-filters*="nation-wales"] tbody tr:not([data-nation="Wales"]),
