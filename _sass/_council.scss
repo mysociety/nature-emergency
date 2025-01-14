@@ -1,0 +1,39 @@
+.council-metadata-grid {
+    @include media-breakpoint-up(sm){
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: max-content;
+        gap: 0 2em;
+        grid-template-rows: repeat(4, auto);
+        grid-template-columns: repeat(2, max-content);
+    }
+
+    dt {
+        font-size: $font-size-sm;
+        color: var(--#{$prefix}secondary-color)
+    }
+}
+
+.council-commitment-card {
+    & > svg {
+        position: absolute;
+        top: 0.5rem;
+        left: 0.5rem;
+        width: 4rem;
+        height: 4rem;
+    }
+
+    .card-header,
+    .card-body {
+        padding-left: 5.5rem; // leave room for the absolutely positioned SVG
+    }
+
+    svg.text-error,
+    svg.text-success {
+        width: 2.5rem;
+        height: 2.5rem;
+        flex-grow: 0;
+        flex-shrink: 0;
+        margin-top: 0.2rem;
+    }
+}

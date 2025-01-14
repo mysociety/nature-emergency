@@ -1,0 +1,13 @@
+{%- case include.council_type -%}
+    {%- when "CC" -%}City Corporation (Single Tier)
+    {%- when "COMB" -%}Combined Authority
+    {%- when "CTY" -%}County Council
+    {%- when "LBO" -%}London Borough (Single Tier)
+    {%- when "MD" -%}Metropolitan District Council (Single Tier)
+    {%- when "NID" -%}Northern Irish District Council (Single Tier)
+    {%- when "NMD" -%}District Council
+    {%- when "SCO" -%}Unitary Authority (Single Tier)
+    {%- when "SRA" -%}Strategic Regional Authority (Single Tier)
+    {%- when "UA" -%}Unitary Authority (Single Tier)
+    {%- when "WPA" -%}Unitary Authority (Single Tier)
+{%- endcase -%}

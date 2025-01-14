@@ -1,5 +1,5 @@
 $(function(){
-    $('.scorecard__data__table').on('click', 'tbody tr', function(){
+    $('.scorecard__data__table, .mini-scorecard').on('click', 'tbody tr', function(){
         window.location = $(this).find('a').eq(0).attr('href');
     });
 

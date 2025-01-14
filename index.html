@@ -171,7 +171,7 @@ layout: default
                 <table class="table mb-0" id="scorecard-table">
                     <thead>
                         <tr>
-                            <th>
+                            <th class="council-name">
                                 Council
                                 <label class="visually-hidden" for="scorecard-table-search">Find a council by name</label>
                                 <p class="search-input mt-2 mb-0">
@@ -179,19 +179,19 @@ layout: default
                                     <button type="button" aria-label="Search">{% include icons/search.svg %}</button>
                                 </p>
                             </th>
-                            <th style="vertical-align: top;">
+                            <th style="vertical-align: top;" class="priority-0">
                                 {% include images/priority-0.svg classes="d-block text-priority-0 mt-n2 mb-2" width="40" height="40" %}
                                 Nature emergency
                             </th>
-                            <th style="vertical-align: top;">
+                            <th style="vertical-align: top;" class="priority-1">
                                 {% include images/priority-1.svg classes="d-block text-priority-1 mt-n2 mb-2" width="40" height="40" %}
                                 {{ site.data.priorities["priority_1"].short_name | capitalize }}
                             </th>
-                            <th style="vertical-align: top;">
+                            <th style="vertical-align: top;" class="priority-2">
                                 {% include images/priority-2.svg classes="d-block text-priority-2 mt-n2 mb-2" width="40" height="40" %}
                                 {{ site.data.priorities["priority_2"].short_name | capitalize }}
                             </th>
-                            <th style="vertical-align: top;">
+                            <th style="vertical-align: top;" class="priority-3">
                                 {% include images/priority-3.svg classes="d-block text-priority-3 mt-n2 mb-2" width="40" height="40" %}
                                 {{ site.data.priorities["priority_3"].short_name | capitalize }}
                             </th>
@@ -200,22 +200,22 @@ layout: default
                     <tbody>
                     {%- for c in site.data.councils -%}
                         <tr data-council-slug="{{ c.council_slug }}" data-council-type="{% include simplified-council-type.html council_type=c.council_type %}" data-nation="{{ c.council_nation }}" data-region="{{ c.council_region }}" data-ruc="{{ c.council_ruc }}" data-imd="{{ c.council_imd|slice:0 }}" data-ned="{{ c.ned }}" data-ned-year="{{ c.ned_date_passed | date: '%Y' }}" data-priority-1="{{ c.priority_1 }}" data-priority-2="{{ c.priority_2 }}" data-priority-3="{{ c.priority_3 }}">
-                            <td>
+                            <td class="council-name">
                                 <a href="{{ c.council_slug | prepend: 'councils/' | relative_url }}">{{ c.council_name }}</a>
                             </td>
-                            <td class="text-{% include declaration-color.html i=c.ned %}">
+                            <td class="text-{% include declaration-color.html i=c.ned %} priority-0">
                                 {%- include declaration-tick-cross.html i=c.ned -%}
                             {%- if c.ned_date_passed -%}
                                 {{- c.ned_date_passed | date: '%Y' -}}
                             {%- endif -%}
                             </td>
-                            <td class="text-{% include priority-color.html i=c.priority_1 %}">
+                            <td class="text-{% include priority-color.html i=c.priority_1 %} priority-1">
                                 {%- include priority-tick-cross.html i=c.priority_1 -%}
                             </td>
-                            <td class="text-{% include priority-color.html i=c.priority_2 %}">
+                            <td class="text-{% include priority-color.html i=c.priority_2 %} priority-2">
                                 {%- include priority-tick-cross.html i=c.priority_2 -%}
                             </td>
-                            <td class="text-{% include priority-color.html i=c.priority_3 %}">
+                            <td class="text-{% include priority-color.html i=c.priority_3 %} priority-3">
                                 {%- include priority-tick-cross.html i=c.priority_3 -%}
                             </td>
                         </tr>

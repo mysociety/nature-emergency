@@ -2,256 +2,241 @@
 layout: default
 ---
 {% assign council = site.data.councils | where: "council_slug", page.council_slug | first %}
+{% assign similarities = site.data.similarities | where: "gss_a", council.council_gss %}
 
-<div class="container">
+<div class="container my-4 my-sm-5 my-lg-6">
+    <h1>{{ council.council_name }}</h1>
 
-  {% if council %}
-    <h1 class="mb-5">{{ council.council_name }}</h1>
-
-    <dl class="mb-5">
-      <div class="row">
-        {% if council.council_type %}
-          <div class="col-2 d-flex flex-column">
-            <dt class="small text-muted">
-              Council type&nbsp;
-
-              <!-- Button trigger modal -->
-              <button type="button" class="btn btn-secondary rounded-circle p-0" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:1.2rem; height:1.2rem">
-                {%- include icons/question.svg classes=include.classes width=include.width height=include.height role=include.role width="0.8rem" height="0.8rem" classes="align-text-top" -%}
-              </button>
-
-              <!-- Modal -->
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h1 class="modal-title fs-5" id="exampleModalLabel">Council type</h1>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      Lorem ipsum dolor sit amet. Eos dolorum numquam nam similique labore ut quia asperiores ut officia quia. Ut quae ipsa ut cumque nostrum ea deleniti vitae vel saepe tempora in dolorem quod.
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </dt>
-            <dd>{{ council.council_type }}</dd>
-          </div>
-        {% endif %}
-
-        {% if council.council_nation %}
-          <div class="col-2 d-flex flex-column">
-            <dt class="small text-muted">Nation&nbsp;</dt>
-            <dd>{{ council.council_nation }}</dd>
-          </div>
-        {% endif %}
-
-        {% if council.council_region %}
-          <div class="col-2 d-flex flex-column">
-            <dt class="small text-muted">Region&nbsp;</dt>
-            <dd>{{ council.council_region }}</dd>
-          </div>
-        {% endif %}
-      </div>
-      <div class="row mb-4">
-        {% if council.council_ruc %}
-          <div class="col-2 d-flex flex-column">
-            <dt class="small text-muted">Urbanisation&nbsp;</dt>
-            <dd>{{ council.council_ruc }}</dd>
-          </div>
-        {% endif %}
-
-        {% if council.council_imd %}
-          <div class="col-3 d-flex flex-column">
-            <dt class="small text-muted">
-              Index of multiple deprivation:&nbsp;
-              <button class="btn btn-secondary rounded-circle p-0" data-bs-toggle="tooltip" data-bs-placement="top" title="Lorem ipsum dolor sit amet. Eos dolorum numquam nam similique labore ut quia asperiores ut officia quia. Ut quae ipsa ut cumque nostrum ea deleniti vitae vel saepe tempora in dolorem quod." style="width:1.2rem; height:1.2rem">
-                {%- include icons/question.svg classes=include.classes width=include.width height=include.height role=include.role width="0.8rem" height="0.8rem" classes="align-text-top" -%}
-              </button>
-            </dt>
-            <dd>{{ council.council_imd }}</dd>
-          </div>
-        {% endif %}
-      </div>
-
-      <div class="row mb-4">
-        <div class="col-md-6">
-          <div class="p-3 border border-{% include declaration-color.html i=council.ned %} text-{% include declaration-color.html i=council.ned %} {% include declaration-background.html i=council.ned %}">
-            <div class="d-flex flex-row align-items-center gap-2">
-              <dt class="visually-hidden">Nature emergency Declaration</dt>
-              {%- include declaration-tick-cross.html i=council.ned width="40" height="40" -%}
-              {%- if council.ned_date_passed -%}
-                <dd class="h1 mb-0">{{- council.ned_date_passed | date: '%Y' -}}</dd>
-              {%- endif -%}
-            </div>
-            <span class="fw-bold">Nature emergency Declaration</span>
-
-            {% if council.ned == "1" or council.ned == "2" %}
-              <figure class="mb-0 mt-3 mt-lg-4 border-start ps-3 text-black scrollable-container is--vertical" style="--bs-border-width: 0.25rem; --bs-border-color: rgba(0,0,0,0.1); max-height:200px;">
-                  <blockquote class="blockquote">
-                      <p class="fs-7 fst-italic font-serif">“{{ council.ned_exact_wording | default: '[[ council.ned_exact_wording ]]' | newline_to_br }}”</p>
-                  </blockquote>
-                  <figcaption class="blockquote-footer mt-n2 mb-0">
-                      <a class="link-{% include declaration-color.html i=council.ned %}" href="{{ council.ned_url | default: '[[ council.ned_url ]]' }}" target="_blank" title="Opens in a new window">
-                          Passed
-                          {{ council.ned_date_passed | default: '[[ council.ned_date_passed ]]' | date: '%Y-%m-%d' }}
-                          by
-                          {{ council.ned_where_passed | default: '[[ council.ned_where_passed ]]' }}
-                      </a>
-                  </figcaption>
-            {% endif %}
-          </div>
-        </div>
-      </div>
-  
-      <div class="row">
-        {% include priority-card.html priority_number=1 priority_value=council.priority_1 %}
-        {% include priority-card.html priority_number=2 priority_value=council.priority_2 %}
-        {% include priority-card.html priority_number=3 priority_value=council.priority_3 %}
-        <div class="mt-3">
-          <a href="#" class="btn btn-sm btn-secondary">
-            Share on X
-          </a>
-          <a href="#" class="btn btn-sm btn-secondary">
-            Share on Facebook
-          </a>
-        </div>
-      </div>
+    <dl class="council-metadata-grid my-4 my-lg-5">
+        <dt>Council type</dt>
+        <dd class="mb-lg-3">{% include human-council-type.html council_type=council.council_type %}</dd>
+      {% if council.council_nation == council.council_region %}
+        <dt>Nation</dt>
+        <dd class="mb-lg-3">{{ council.council_nation }}</dd>
+      {% else %}
+        <dt>Nation and region</dt>
+        <dd class="mb-lg-3">{{ council.council_nation }}, {{ council.council_region }}</dd>
+      {% endif %}
+        <dt>Rural/Urban profile</dt>
+        <dd class="mb-lg-3">{{ council.council_ruc }}</dd>
+        <dt>Deprivation quintile</dt>
+        <dd class="mb-lg-3">{{ council.council_imd }} ({% include imd-description.html imd=council.council_imd %})</dd>
     </dl>
 
-    <div class="data-explorer__table mb-5">
-      <h2 class="mb-3">Similar councils</h2>
-      <table class="table mb-0 border w-md-75">
-          <thead>
-              <tr>
-                  <th>Council</th>
-                  <th>Nature emergency</th>
-                  <th class="small">{{ site.data.priorities["priority_1"].short_name }}</th>
-                  <th class="small">{{ site.data.priorities["priority_2"].short_name }}</th>
-                  <th class="small">{{ site.data.priorities["priority_3"].short_name }}</th>
-              </tr>
-          </thead>
-          <tbody>
-          {%- for c in site.data.councils -%}
-              <tr class="{% if c.council_slug == page.council_slug %}d-none{% endif %}" data-council-slug="{{ c.council_slug }}" data-council-type="{{ c.council_type }}" data-council-nation="{{ c.council_nation }}" data-council-region="{{ c.council_region }}" data-council-ruc="{{ c.council_ruc }}" data-council-imd="{{ c.council_imd }}" data-council-data-council-ned="{{ c.ned }}" data-ned-date-passed="{{ c.ned_date_passed | date: '%Y' }}" data-priority-1="{{ c.priority_1 }}" data-priority-2="{{ c.priority_2 }}" data-priority-3="{{ c.priority_3 }}">
-                  <td>
-                      <a href="{{ c.council_slug | prepend: 'councils/' | relative_url }}#councils">{{ c.council_name }}</a>
-                  </td>
-                  <td class="text-{% include declaration-color.html i=c.ned %}">
-                      {%- include declaration-tick-cross.html i=c.ned -%}
-                  {%- if c.ned_date_passed -%}
-                      {{- c.ned_date_passed | date: '%Y' -}}
-                  {%- endif -%}
-                  </td>
-                  <td class="text-{% include priority-color.html i=c.priority_1 %}">
-                      {%- include priority-tick-cross.html i=c.priority_1 -%}
-                  </td>
-                  <td class="text-{% include priority-color.html i=c.priority_2 %}">
-                      {%- include priority-tick-cross.html i=c.priority_2 -%}
-                  </td>
-                  <td class="text-{% include priority-color.html i=c.priority_3 %}">
-                      {%- include priority-tick-cross.html i=c.priority_3 -%}
-                  </td>
-              </tr>
-          {%- endfor -%}
-          </tbody>
-      </table>
-    </div>
-
-    <h2 class="mb-3">Ways to improve</h2>
-    <div class="row mb-5">
-      <div class="col-sm-4">
-        <div class="card">
-          {%- include images/img-placeholder.svg alt="placeholder"  -%}
-          <div class="card-body">
-            <h5 class="card-title">Maybe you should try this</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="card">
-          {%- include images/img-placeholder.svg alt="placeholder"  -%}
-          <div class="card-body">
-            <h5 class="card-title">You can improve...</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-4">
-        <div class="card">
-          {%- include images/img-placeholder.svg alt="placeholder"  -%}
-          <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
-          </div>
-        </div>
-      </div>
-    </div>
-
     <div class="row">
-      <div class="col-md-8">
-        <div class="accordion" id="council-accordion">
-          {% if council.ned == "1" or council.ned == "2" %}
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                  Nature Emergency Declaration
-                </button>
-              </h2>
-              <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#council-accordion">
-                <div class="accordion-body">
-                    <figure class="mb-0 mt-3 mt-lg-4 border-start ps-3 text-black scrollable-container is--vertical" style="--bs-border-width: 0.25rem; --bs-border-color: rgba(0,0,0,0.1);">
-                        <blockquote class="blockquote">
-                            <p class="fs-7 fst-italic font-serif">“{{ council.ned_exact_wording | default: '[[ council.ned_exact_wording ]]' | newline_to_br }}”</p>
-                        </blockquote>
-                        <figcaption class="blockquote-footer mt-n2 mb-0">
-                            <a class="link-{% include declaration-color.html i=council.ned %}" href="{{ council.ned_url | default: '[[ council.ned_url ]]' }}" target="_blank" title="Opens in a new window">
-                                Passed
-                                {{ council.ned_date_passed | default: '[[ council.ned_date_passed ]]' | date: '%Y-%m-%d' }}
-                                by
-                                {{ council.ned_where_passed | default: '[[ council.ned_where_passed ]]' }}
-                            </a>
-                        </figcaption>
-                  </div>
-                </div>
-              </div>
-            {% endif %}
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Accordion Item #2
-              </button>
-            </h2>
-            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#council-accordion">
-              <div class="accordion-body">
-                <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-              </div>
-            </div>
-          </div>
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                Accordion Item #3
-              </button>
-            </h2>
-            <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#council-accordion">
-              <div class="accordion-body">
-                <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+        <div class="mb-4 mb-md-0 col-md-7">
 
-  {% else %}
-    <p>Council not found.</p>
-  {% endif %}
+            <h2 class="h3 mb-md-3 mb-lg-4">Nature commitments</h2>
+            <div class="d-flex flex-column gap-3 gap-lg-4">
+                <div class="card council-commitment-card">
+                    <div class="card-header bg-priority-0-100">
+                        <h3 class="h5 mb-0">Nature emergency</h3>
+                    </div>
+                    {% include images/priority-0.svg classes="d-block text-priority-0" width="64" height="64" %}
+                    <div class="card-body">
+                      {% if council.ned == "1" or council.ned == "2" or council.ned == "3" %}
+                        <div class="d-flex gap-3">
+                            {%- include icons/tick.svg classes="text-success" -%}
+                            <div>
+                                <p class="mb-0">
+                                  {% if council.ned == "3" %}
+                                    {{ council.council_name }} has not officially declared a nature emergency, but did pass a nature recovery motion
+                                  {% else %}
+                                    {{ council.council_name }} declared a nature emergency
+                                  {% endif %}
+                                  {%- if council.ned_date_passed %}
+                                    in {{ council.ned_date_passed | date: '%Y' }}
+                                  {%- endif %}.
+                                </p>
+                              {%- if council.ned_exact_wording -%}
+                                <details>
+                                    <summary>
+                                        <span class="fake-link">
+                                            Read the full
+                                          {% if council.ned == "3" %}
+                                            motion
+                                          {% else %}
+                                            declaration
+                                          {% endif %}
+                                        </span>
+                                    </summary>
+                                    <div class="mt-3 fs-7 text-muted">
+                                        <p class="mb-0">{{ council.ned_exact_wording | newline_to_br }}</p>
+                                        <p class="mt-2 mb-0">— {{ council.ned_where_passed }} <a href="{{ council.ned_url }}">(Source)</a></p>
+                                    </div>
+                                </details>
+                              {%- endif -%}
+                            </div>
+                        </div>
+                      {% else %}
+                        <div class="d-flex gap-3">
+                            {%- include icons/cross.svg classes="text-error" -%}
+                            <p class="mb-0">{{ council.council_name }} has not declared a nature emergency.</p>
+                        </div>
+                      {% endif %}
+                    </div>
+                </div>
+                <div class="card council-commitment-card">
+                    <div class="card-header bg-priority-1-100">
+                        <h3 class="h5 mb-0">{{ site.data.priorities["priority_1"].short_name | capitalize }}</h3>
+                    </div>
+                    {% include images/priority-1.svg classes="d-block text-priority-1" width="64" height="64" %}
+                    <div class="card-body">
+                      {% if council.priority_1 == "1" %}
+                        <div class="d-flex gap-3">
+                            {%- include icons/tick.svg classes="text-success" -%}
+                            <p class="mb-0">{{ council.council_name }} has {{ site.data.priorities["priority_1"].description_committed }}.</p>
+                        </div>
+                      {% else %}
+                        <div class="d-flex gap-3">
+                            {%- include icons/cross.svg classes="text-error" -%}
+                            <p class="mb-0">{{ council.council_name }} has not {{ site.data.priorities["priority_1"].description_committed }}.</p>
+                        </div>
+                      {% endif %}
+                    </div>
+                </div>
+                <div class="card council-commitment-card">
+                    <div class="card-header bg-priority-2-100">
+                        <h3 class="h5 mb-0">{{ site.data.priorities["priority_2"].short_name | capitalize }}</h3>
+                    </div>
+                    {% include images/priority-2.svg classes="d-block text-priority-2" width="64" height="64" %}
+                    <div class="card-body">
+                      {% if council.priority_2 == "1" %}
+                        <div class="d-flex gap-3">
+                            {%- include icons/tick.svg classes="text-success" -%}
+                            <p class="mb-0">{{ council.council_name }} has {{ site.data.priorities["priority_2"].description_committed }}.</p>
+                        </div>
+                      {% else %}
+                        <div class="d-flex gap-3">
+                            {%- include icons/cross.svg classes="text-error" -%}
+                            <p class="mb-0">{{ council.council_name }} has not {{ site.data.priorities["priority_2"].description_committed }}.</p>
+                        </div>
+                      {% endif %}
+                    </div>
+                </div>
+                <div class="card council-commitment-card">
+                    <div class="card-header bg-priority-3-100">
+                        <h3 class="h5 mb-0">{{ site.data.priorities["priority_3"].short_name | capitalize }}</h3>
+                    </div>
+                    {% include images/priority-3.svg classes="d-block text-priority-3" width="64" height="64" %}
+                    <div class="card-body">
+                      {% if council.priority_3 == "1" %}
+                        <div class="d-flex gap-3">
+                            {%- include icons/tick.svg classes="text-success" -%}
+                            <p class="mb-0">{{ council.council_name }} has {{ site.data.priorities["priority_3"].description_committed }}.</p>
+                        </div>
+                      {% else %}
+                        <div class="d-flex gap-3">
+                            {%- include icons/cross.svg classes="text-error" -%}
+                            <p class="mb-0">{{ council.council_name }} has not {{ site.data.priorities["priority_3"].description_committed }}.</p>
+                        </div>
+                      {% endif %}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-4 offset-md-1">
+
+            <h2 class="h3 mb-md-3 mb-lg-4">Next steps</h2>
+            <ul class="my-3 list-unstyled">
+                <li class="mt-3 pt-3 border-top">Delve into more detail and recommendations for local government in our <a href="#">nature recovery policy report</a></li>
+                <li class="mt-3 pt-3 border-top">Share the suggested wording in our <a href="#">example motion</a> to make the declaration</li>
+                <li class="mt-3 pt-3 border-top">See other local authorities’ experiences on this crucial journey in our <a href="#">case studies</a></li>
+            </ul>
+            <p class="mt-3 pt-3 border-top">We want to help local authorities declare nature emergencies and commit to meaningful action to protect and restore their wildlife.</p>
+            <p class="mb-0">If your local authority needs advice or support, we’re here to help. Email <a href="#">XXXXXXX</a> or call <a href="#">XXXXXXX</a>.</p>
+
+        </div>
+    </div>
 </div>
+
+{% if similarities %}
+<div class="bg-light py-4 py-sm-5 py-lg-6">
+    <div class="container">
+        <h2>How does this council compare?</h2>
+        <p>Here are the {{ similarities|size }} most similar councils, based on a combination of distance, urban/rural split, emissions profile, and deprivation.</p>
+        <div class="mini-scorecard table-responsive mt-4 mt-lg-5">
+            <table class="table mb-0">
+                <thead>
+                    <tr>
+                        <th class="council-name">
+                            Council
+                        </th>
+                        <th class="council-similarity">
+                            Similarity
+                        </th>
+                        <th style="vertical-align: top;" class="priority-0">
+                            {% include images/priority-0.svg classes="d-block text-priority-0 mt-n2 mb-2" width="40" height="40" %}
+                            Nature emergency
+                        </th>
+                        <th style="vertical-align: top;" class="priority-1">
+                            {% include images/priority-1.svg classes="d-block text-priority-1 mt-n2 mb-2" width="40" height="40" %}
+                            {{ site.data.priorities["priority_1"].short_name | capitalize }}
+                        </th>
+                        <th style="vertical-align: top;" class="priority-2">
+                            {% include images/priority-2.svg classes="d-block text-priority-2 mt-n2 mb-2" width="40" height="40" %}
+                            {{ site.data.priorities["priority_2"].short_name | capitalize }}
+                        </th>
+                        <th style="vertical-align: top;" class="priority-3">
+                            {% include images/priority-3.svg classes="d-block text-priority-3 mt-n2 mb-2" width="40" height="40" %}
+                            {{ site.data.priorities["priority_3"].short_name | capitalize }}
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                  <tr class="highlight">
+                      <td class="council-name">
+                          <a href="{{ council.council_slug | prepend: 'councils/' | relative_url }}">{{ council.council_name }}</a>
+                      </td>
+                      <td class="council-similarity">
+                          <strong class="text-accent">This council</strong>
+                      </td>
+                      <td class="text-{% include declaration-color.html i=council.ned %} priority-0">
+                          {%- include declaration-tick-cross.html i=council.ned -%}
+                        {%- if council.ned_date_passed -%}
+                          {{- council.ned_date_passed | date: '%Y' -}}
+                        {%- endif -%}
+                      </td>
+                      <td class="text-{% include priority-color.html i=council.priority_1 %} priority-1">
+                          {%- include priority-tick-cross.html i=council.priority_1 -%}
+                      </td>
+                      <td class="text-{% include priority-color.html i=council.priority_2 %} priority-2">
+                          {%- include priority-tick-cross.html i=council.priority_2 -%}
+                      </td>
+                      <td class="text-{% include priority-color.html i=council.priority_3 %} priority-3">
+                          {%- include priority-tick-cross.html i=council.priority_3 -%}
+                      </td>
+                    </tr>
+                  {% for similarity in similarities %}
+                    {%- assign similar_council = site.data.councils | where: "council_gss", similarity.gss_b | first -%}
+                    <tr>
+                      <td class="council-name">
+                          <a href="{{ similar_council.council_slug | prepend: 'councils/' | relative_url }}">{{ similar_council.council_name }}</a>
+                      </td>
+                      <td class="council-similarity">
+                          {{ similarity.match }}%
+                      </td>
+                      <td class="text-{% include declaration-color.html i=similar_council.ned %} priority-0">
+                          {%- include declaration-tick-cross.html i=similar_council.ned -%}
+                        {%- if similar_council.ned_date_passed -%}
+                          {{- similar_council.ned_date_passed | date: '%Y' -}}
+                        {%- endif -%}
+                      </td>
+                      <td class="text-{% include priority-color.html i=similar_council.priority_1 %} priority-1">
+                          {%- include priority-tick-cross.html i=similar_council.priority_1 -%}
+                      </td>
+                      <td class="text-{% include priority-color.html i=similar_council.priority_2 %} priority-2">
+                          {%- include priority-tick-cross.html i=similar_council.priority_2 -%}
+                      </td>
+                      <td class="text-{% include priority-color.html i=similar_council.priority_3 %} priority-3">
+                          {%- include priority-tick-cross.html i=similar_council.priority_3 -%}
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endif %}

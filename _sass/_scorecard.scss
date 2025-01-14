@@ -103,70 +103,31 @@ body:has(.scorecard) {
     }
 }
 
-.scorecard__data__table {
-    @include media-breakpoint-up(sm) {
-        width: 100%;
-        overflow: auto;
-    }
-
+// The "scorecard" table on the homepage, and "similar councils" table
+// on an individual council page share a lot of common styles.
+.scorecard__data__table,
+.mini-scorecard {
     table {
         --cell-padding: 0.5rem;
-    
+
         @include media-breakpoint-up(md) {
             --cell-padding: 0.75rem;
         }
-    
+
         @include media-breakpoint-up(lg) {
             --cell-padding: 1rem;
         }
-    
-        thead {
-            position: sticky;
-            top: 0;
-            box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.05);
-        }
-    
+
         & > :not(caption) > * > * {
             padding: var(--cell-padding);
         }
-    
+
         th, td {
             line-height: 1.2;
         }
 
         tr:has(a){
             cursor: pointer;
-        }
-    
-        tr > :nth-child(2),
-        tr > :nth-child(3),
-        tr > :nth-child(4),
-        tr > :nth-child(5) {
-            width: 15%;
-        }
-
-        thead {
-            tr > :nth-child(2) {
-                --#{$prefix}table-bg: var(--#{$prefix}priority-0-200);
-            }
-
-            tr > :nth-child(3) {
-                --#{$prefix}table-bg: var(--#{$prefix}priority-1-100);
-            }
-
-            tr > :nth-child(4) {
-                --#{$prefix}table-bg: var(--#{$prefix}priority-2-100);
-            }
-
-            tr > :nth-child(5) {
-                --#{$prefix}table-bg: var(--#{$prefix}priority-3-100);
-            }
-        }
-
-        tbody {
-            tr > :nth-child(2) {
-                --#{$prefix}table-bg: var(--#{$prefix}priority-0-100);
-            }
         }
 
         a {
@@ -179,10 +140,46 @@ body:has(.scorecard) {
             }
         }
 
+        tr > .priority-0,
+        tr > .priority-1,
+        tr > .priority-2,
+        tr > .priority-3 {
+            width: 15%;
+        }
+
+        thead {
+            tr > .priority-0 {
+                --#{$prefix}table-bg: var(--#{$prefix}priority-0-200);
+            }
+
+            tr > .priority-1 {
+                --#{$prefix}table-bg: var(--#{$prefix}priority-1-100);
+            }
+
+            tr > .priority-2 {
+                --#{$prefix}table-bg: var(--#{$prefix}priority-2-100);
+            }
+
+            tr > .priority-3 {
+                --#{$prefix}table-bg: var(--#{$prefix}priority-3-100);
+            }
+        }
+
+        tbody {
+            tr > .priority-0 {
+                --#{$prefix}table-bg: var(--#{$prefix}priority-0-100);
+            }
+
+            svg {
+                vertical-align: -0.1em;
+                margin-right: 0.1em;
+            }
+        }
+
         tr.highlight {
             --#{$prefix}table-bg: #{mix($wt-common-gorse, #fff, 20%)};
 
-            & > :nth-child(2) {
+            & > .priority-0 {
                 --#{$prefix}table-bg: #{mix($wt-common-gorse, #eee, 20%)};
             }
         }
@@ -193,17 +190,32 @@ body:has(.scorecard) {
                 --#{$prefix}table-bg: #{$gray-100};
             }
 
-            tbody tr:has(:hover) > :nth-child(2) {
+            tbody tr:has(:hover) > .priority-0 {
                 --#{$prefix}table-bg: var(--#{$prefix}priority-0-200);
             }
 
             tr.highlight:has(td:hover) {
                 --#{$prefix}table-bg: #{mix($wt-common-gorse, #fff, 33%)};
-    
-                & > :nth-child(2) {
+
+                & > .priority-0 {
                     --#{$prefix}table-bg: #{mix($wt-common-gorse, #eee, 33%)};
                 }
             }
+        }
+    }
+}
+
+.scorecard__data__table {
+    @include media-breakpoint-up(sm) {
+        width: 100%;
+        overflow: auto;
+    }
+
+    table {
+        thead {
+            position: sticky;
+            top: 0;
+            box-shadow: 0 0.25rem 0.25rem rgba(0, 0, 0, 0.05);
         }
     }
 
@@ -255,5 +267,13 @@ body:has(.scorecard) {
 
     .scorecard:has([data-filters]) & {
         display: block;
+    }
+}
+
+// The "similar councils" table on an individual council page.
+.mini-scorecard {
+    table {
+        border-width: 1px;
+        border-style: solid;
     }
 }
