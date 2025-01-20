@@ -1,0 +1,23 @@
+.toc {
+    line-height: 1.2;
+    font-size: $font-size-base;
+    top: 2rem; // for sticky positioning (on wide screens)
+
+    ul {
+        @include list-unstyled();
+    }
+
+    ul ul {
+        margin-left: map-get($spacers, 3);
+        font-size: $font-size-sm;
+    }
+
+    li {
+        margin-top: map-get($spacers, 3);
+    }
+
+    a {
+        --underline-width: 1px;
+        font-weight: normal !important;
+    }
+}
