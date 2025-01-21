@@ -10,30 +10,38 @@ from mysoc_dataset import get_dataset_df
 import pandas as pd
 
 
-# Map output column slugs to input column indexes
-COLUMNS = {
-    "row_no": 0,
-    "council_name": 1,
-    "ced_date_passed": 5,
-    "ced": 6,
-    "ced_url": 7,
-    "ned": 8,
-    "ned_url": 9,
-    "ned_date_passed": 10,
-    "ned_where_passed": 11,
-    "ned_exact_wording": 13,
-    "priority_1": 14,
-    "priority_2": 16,
-    "priority_3": 18,
-}
+# Slugs of every column header in the spreadsheet.
+# Note that "Hidden" columns in the Google Sheet are excluded from the HTML export.
+COLUMNS = [
+    "row_no",
+    "council_name",
+    "council_type",  # we don't use this column
+    "nation",  # we don't use this column
+    "ced_date_passed",
+    "ced",
+    "ced_url",
+    "ned",
+    "ned_url",
+    "ned_date_passed",
+    "ned_where_passed",
+    "notes",  # we don't use this column
+    "ned_exact_wording",
+    "priority_1",
+    "notes",  # we don't use this column
+    "priority_2",
+    "notes",  # we don't use this column
+    "priority_3",
+    "notes",  # we don't use this column
+]
 
 
 def col_index(slug):
-    return COLUMNS[slug]
+    return COLUMNS.index(slug)
 
 
-def col_letter(slug):
-    return chr(col_index(slug) + 96).upper()
+# Human-readable reference for a cell, in debug/error messages.
+def cell_ref(slug, row):
+    return f"(col:{slug}, row:{row})"
 
 
 # Case-insensitive match, gracefully handling None input.
@@ -142,13 +150,12 @@ def extract_data_from_row(row):
     elif contains(ned, "no"):
         row_data["ned"] = 0
     else:
-        warn(f"Error in cell {col_letter("ced")}{row_no}: Expected cell to contain `joint declaration`, `motion`, `Yes`, or `No`, found `{ned}`.")
+        warn(f"Error in cell {cell_ref("ced", row_no)}: Expected cell to contain `joint declaration`, `motion`, `Yes`, or `No`, found `{ned}`.")
 
     if row_data["ned"] in [1, 2, 3]:
         row_data["ned_date_passed"] = extract_date_from_cell(
             cols[col_index("ned_date_passed")],
-            col_letter("ned_date_passed"),
-            row_no
+            cell_ref("ned_date_passed", row_no)
         )
 
         row_data["ned_url"] = extract_link_url_from_cell(
@@ -175,7 +182,7 @@ def extract_data_from_row(row):
             elif matches(text, "no"):
                 row_data[priority_no] = 0
             else:
-                warn(f"Error in cell {col_letter(priority_no)}{row_no}: Expected `Yes`, `No`, or `Maybe/Unsure`, found `{text}`.")
+                warn(f"Error in cell {cell_ref(priority_no, row_no)}: Expected `Yes`, `No`, or `Maybe/Unsure`, found `{text}`.")
 
     ced = extract_text_from_cell(
         cols[col_index("ced")]
@@ -188,13 +195,12 @@ def extract_data_from_row(row):
     elif matches(ced, "n"):
         row_data["ced"] = 0
     else:
-        warn(f"Error in cell {col_letter("ced")}{row_no}: Expected `Y` or `N`, found `{ced}`.")
+        warn(f"Error in cell {cell_ref("ced", row_no)}: Expected `Y` or `N`, found `{ced}`.")
 
     if row_data["ced"] in [1, 2]:
         row_data["ced_date_passed"] = extract_date_from_cell(
             cols[col_index("ced_date_passed")],
-            col_letter("ced_date_passed"),
-            row_no
+            cell_ref("ced_date_passed", row_no)
         )
 
         row_data["ced_url"] = extract_link_url_from_cell(
@@ -212,7 +218,7 @@ def extract_text_from_cell(cell, none_values=['n/a', 'na']):
         return text
 
 
-def extract_date_from_cell(cell, col_no, row_no):
+def extract_date_from_cell(cell, cell_ref):
     text = extract_text_from_cell(cell)
 
     if text == '' or text is None:
@@ -221,7 +227,7 @@ def extract_date_from_cell(cell, col_no, row_no):
     try:
         ced_date_passed = dateutil.parser.parse(text).strftime('%Y-%m-%d')
     except ValueError as e:
-        warn(f"Error in cell {col_no}{row_no}: Could not parse date from `{text}`: {e}.")
+        warn(f"Error in cell {cell_ref}: Could not parse date from `{text}`: {e}.")
         return None
 
     return ced_date_passed
