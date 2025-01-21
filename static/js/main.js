@@ -5,7 +5,8 @@ $(function(){
 
     $('input[name="pc"]').each(function(){
         var $pc = $(this);
-        new Awesomplete(
+
+        var awesomplete = new Awesomplete(
             $pc[0],
             {
                 list: _.pluck(window.councils, 'council_name'),
@@ -13,6 +14,7 @@ $(function(){
                 autoFirst: true
             }
         );
+
         document.addEventListener('awesomplete-select', function(selection){
             selection.preventDefault();
             var council = _.findWhere(
@@ -20,6 +22,67 @@ $(function(){
                 {'council_name': selection.text.value}
             );
             window.location = window.baseurl + '/councils/' + council.council_slug + '#councils';
+        });
+
+        $pc.on('keypress', function (e) {
+            // Reset Awesomplete overrides from last geocoding result.
+            awesomplete.list = _.pluck(window.councils, 'council_name');
+            awesomplete.filter = Awesomplete.FILTER_CONTAINS;
+
+            if (e.which === 13) {
+                e.preventDefault();
+
+                // If the user presses Enter, we assume they’ve entered a
+                // postcode and intend to search by it. We tidy the postcode
+                // then send it to MapIt. (If the text isn’t a valid postcode,
+                // MapIt will return an error, which we just silently ignore.)
+                var postcode = $pc.val().replaceAll(' ', '').toLowerCase();
+                $.ajax({
+                    url: 'https://mapit.mysociety.org/postcode/' + encodeURIComponent(postcode) + '.json',
+                    dataType: 'json'
+                }).done(function(data){
+                    var areas = _.values(data.areas);
+                    var matches = _.filter(areas, function(area){
+                        return [
+                            'CTY', // County councils (two-tier)
+                            'COI', // Isles of Scilly is a Unitary authority (single-tier)
+                            'DIS', // Non-Metropolitan Districts (two-tier)
+                            'GLA', // Greater London Authority (which we treat as a Combined Authority)
+                            'LBO', // London Boroughs (single-tier)
+                            'LGD', // Nothern Irish councils (single-tier)
+                            'MTD', // Metropolitan Districts (single-tier)
+                            'UTA', // Unitary Authorities (single-tier)
+                        ].indexOf(area.type) > -1;
+                    });
+
+                    // If MapIt returns a single area, redirect to it
+                    // (as if it had been selected from the Awesomplete).
+                    if (matches.length == 1) {
+                        var council = _.findWhere(
+                            window.councils,
+                            {'council_gss': matches[0].codes.gss}
+                        );
+                        window.location = window.baseurl + '/councils/' + council.council_slug + '#councils';
+
+                    // If MapIt returns multiple areas (in the case of
+                    // two-tier authorities, eg: CB3 9DR) override the
+                    // Awesomplete to display them in a dropdown menu.
+                    } else if (matches.length > 1) {
+                        // Get matching councils from window.councils (matching by GSS code).
+                        var councils = _.filter(window.councils, function(council){
+                            return _.map(matches, function(match){
+                                return match.codes.gss;
+                            }).indexOf(council.council_gss) > -1;
+                        });
+
+                        // Note: We will revert these Awesomplete overrides
+                        // on the next keypress.
+                        awesomplete.list = _.pluck(councils, 'council_name');
+                        awesomplete.filter = function(){ return true; }
+                        awesomplete.evaluate();
+                    }
+                });
+            }
         });
     });
 
