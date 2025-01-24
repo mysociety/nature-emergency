@@ -1,3 +1,8 @@
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl);
+});
+
 $(function(){
     $('.scorecard__data__table, .mini-scorecard').on('click', 'tbody tr', function(){
         window.location = $(this).find('a').eq(0).attr('href');
