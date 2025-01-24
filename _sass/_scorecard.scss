@@ -130,16 +130,6 @@ body:has(.scorecard) {
             cursor: pointer;
         }
 
-        a {
-            box-shadow: none;
-            color: inherit;
-            background: transparent !important; // override default link hover/focus background
-
-            &:focus-visible {
-                box-shadow: 0 0 0 .2rem $wt-action;
-            }
-        }
-
         tr > .priority-0,
         tr > .priority-1,
         tr > .priority-2,
@@ -180,7 +170,7 @@ body:has(.scorecard) {
             --#{$prefix}table-bg: #{mix($wt-common-gorse, #fff, 20%)};
 
             & > .priority-0 {
-                --#{$prefix}table-bg: #{mix($wt-common-gorse, #eee, 20%)};
+                --#{$prefix}table-bg: #{mix($wt-common-gorse, #f3f3f3, 20%)};
             }
         }
 
@@ -188,18 +178,15 @@ body:has(.scorecard) {
         html.js & {
             tr:has(td:hover) {
                 --#{$prefix}table-bg: #{$gray-100};
+                --#{$prefix}table-bg: #{$wt-interaction};
+
+                a {
+                    box-shadow: none;
+                }
             }
 
             tbody tr:has(:hover) > .priority-0 {
-                --#{$prefix}table-bg: var(--#{$prefix}priority-0-200);
-            }
-
-            tr.highlight:has(td:hover) {
-                --#{$prefix}table-bg: #{mix($wt-common-gorse, #fff, 33%)};
-
-                & > .priority-0 {
-                    --#{$prefix}table-bg: #{mix($wt-common-gorse, #eee, 33%)};
-                }
+                --#{$prefix}table-bg: #{darken($wt-interaction, 5%)};
             }
         }
     }
