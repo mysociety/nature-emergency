@@ -2,6 +2,15 @@
 layout: default
 ---
 
+{%- assign councils_total = site.data.councils | size | times: 1.0 -%}
+{%- assign councils_ned_declared = site.data.councils | where: "ned", "1" | size -%}
+{%- assign councils_ned_joint = site.data.councils | where: "ned", "2" | size -%}
+{%- assign councils_ned_motion = site.data.councils | where: "ned", "3" | size -%}
+{%- assign councils_ned_yes = councils_ned_declared | plus: councils_ned_joint | plus: councils_ned_motion -%}
+{%- assign councils_priority_1_yes = site.data.councils | where: "priority_1", "1" | size -%}
+{%- assign councils_priority_2_yes = site.data.councils | where: "priority_2", "1" | size -%}
+{%- assign councils_priority_3_yes = site.data.councils | where: "priority_3", "1" | size -%}
+
 <div class="container my-4 my-sm-5 my-lg-6">
     <h1 class="mw-50rem mb-3 mb-lg-4 lh-1">Has your council declared a nature emergency?</h1>
     <p class="mw-40rem fs-5">We are in a nature emergency. The four nations of the UK are among the most nature-depleted in the world, with 35% of species populations in decline and 13% under threat of extinction.</p>
@@ -41,7 +50,9 @@ layout: default
                 {% include images/leaf-0.svg classes="text-priority-0-200" %}
                 <div>
                     <strong class="d-block h1 lh-1">
-                        <span id="scorecard-summary-ned">{{ site.data.councils|where: "ned", "1"|size }}</span>%
+                        <span id="scorecard-summary-ned">
+                            {{- councils_ned_yes | divided_by: councils_total | times: 100 | round -}}
+                        </span>%
                     </strong>
                     <span class="scorecard__summary__tile__of-matches">of matching councils</span>
                     have declared a nature emergency
@@ -51,7 +62,9 @@ layout: default
                 {% include images/leaf-1.svg classes="text-priority-1-200" %}
                 <div>
                     <strong class="d-block h1 lh-1">
-                        <span id="scorecard-summary-priority-1">{{ site.data.councils|where: "priority_1", "1"|size }}</span>%
+                        <span id="scorecard-summary-priority-1">
+                            {{- councils_priority_1_yes | divided_by: councils_total | times: 100 | round -}}
+                        </span>%
                     </strong>
                     <span class="scorecard__summary__tile__of-matches">of matching councils</span>
                     have {{ site.data.priorities["priority_1"].description_committed }}
@@ -61,7 +74,9 @@ layout: default
                 {% include images/leaf-2.svg classes="text-priority-2-200" %}
                 <div>
                     <strong class="d-block h1 lh-1">
-                        <span id="scorecard-summary-priority-2">{{ site.data.councils|where: "priority_2", "1"|size }}</span>%
+                        <span id="scorecard-summary-priority-2">
+                            {{- councils_priority_2_yes | divided_by: councils_total | times: 100 | round -}}
+                        </span>%
                     </strong>
                     <span class="scorecard__summary__tile__of-matches">of matching councils</span>
                     have {{ site.data.priorities["priority_2"].description_committed }}
@@ -71,7 +86,9 @@ layout: default
                 {% include images/leaf-3.svg classes="text-priority-3-200" %}
                 <div>
                     <strong class="d-block h1 lh-1">
-                        <span id="scorecard-summary-priority-3">{{ site.data.councils|where: "priority_3", "1"|size }}</span>%
+                        <span id="scorecard-summary-priority-3">
+                            {{- councils_priority_3_yes | divided_by: councils_total | times: 100 | round -}}
+                        </span>%
                     </strong>
                     <span class="scorecard__summary__tile__of-matches">of matching councils</span>
                     have {{ site.data.priorities["priority_3"].description_committed }}
@@ -82,7 +99,7 @@ layout: default
         <div class="scorecard__data">
             <div class="scorecard__data__header">
                 <p class="h6 mb-0">
-                    Showing <span id="scorecard-filtered-count">{{ site.data.councils|size }}</span> of {{ site.data.councils|size }} councils
+                    Showing <span id="scorecard-filtered-count">{{ site.data.councils | size }}</span> of {{ site.data.councils | size }} councils
                 </p>
                 <button class="btn btn-secondary d-flex align-items-center gap-2" type="button" data-bs-toggle="collapse" data-bs-target="#scorecard-filters-detail" aria-controls="scorecard-filters-detail" aria-expanded="false">
                     {%- include icons/filter.svg -%}

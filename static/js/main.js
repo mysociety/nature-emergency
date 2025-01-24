@@ -50,9 +50,17 @@ $(function(){
         // Update the stats above the table.
         var $visibleRows = $table.find('tbody tr').filter(':visible');
         $('#scorecard-filtered-count').text($visibleRows.length);
-        $.each(['ned', 'priority-1', 'priority-2', 'priority-3'], function(i, slug){
+        $.each({
+            'ned': [1, 2, 3],
+            'priority-1': [1],
+            'priority-2': [1],
+            'priority-3': [1]
+        }, function(slug, values){
             if($visibleRows.length) {
-                var $matches = $visibleRows.filter('[data-' + slug + '="1"]');
+                var selector = $.map(values, function(value){
+                    return '[data-' + slug + '="' + value + '"]';
+                }).join(', ');
+                var $matches = $visibleRows.filter(selector);
                 var percent = Math.round(($matches.length / $visibleRows.length) * 100);
             } else {
                 var percent = 0; // prevent NaN when no matches
