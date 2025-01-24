@@ -1,4 +1,5 @@
 title: Nature Emergency
+description: Has your council declared a nature emergency?
 baseurl: "/nature-emergency" # the subpath of your site, e.g. /blog
 url: "https://mysociety.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 host: 0.0.0.0
@@ -40,6 +41,12 @@ page_gen:
   - data: councils
     template: council
     dir: councils
+    index_files: true
+    name: council_slug
+    title: council_name
+  - data: councils
+    template: social
+    dir: social
     index_files: true
     name: council_slug
     title: council_name

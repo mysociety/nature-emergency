@@ -2,3 +2,6 @@ beautifulsoup4
 mysoc-dataset
 pandas
 python-dateutil
+requests
+shot-scraper
+tqdm

@@ -1,0 +1,139 @@
+#!/usr/bin/env python3
+
+import argparse
+import csv
+from pathlib import Path
+import subprocess
+import time
+
+import requests
+from tqdm import tqdm
+
+
+def get_shot(url, filepath, width=1200, height=630):
+    args = [
+        "shot-scraper",
+        "shot",
+        url,
+        "--output",
+        filepath,
+        "--width",
+        f"{width}",
+        "--height",
+        f"{height}",
+        "--browser-arg",
+        '--ignore-certificate-errors',
+        "--browser-arg",
+        '--ignore-https-errors',
+        "--silent",
+    ]
+    # print(' '.join(args))
+    subprocess.run(args)
+
+
+def get_url_for_council(council, base_url):
+    return f"{base_url}/social/{council['council_slug']}/"
+
+
+def get_path_for_council_preview_image(council, output_dir):
+    return Path(output_dir, f"{council['council_slug']}.png")
+
+
+def generate_preview_image(council, base_url, output_dir):
+    Path(output_dir).mkdir(parents=True, exist_ok=True)
+
+    get_shot(
+        get_url_for_council(council, base_url),
+        get_path_for_council_preview_image(council, output_dir).as_posix(),
+    )
+
+
+def wait_for_server(url, interval=1):
+    while True:
+        try:
+            response = requests.get(url)
+            if response.status_code == 200:
+                return
+        except requests.ConnectionError:
+            pass
+        time.sleep(interval)
+
+
+def main():
+    default_server_scheme = "http"
+    default_server_host = "0.0.0.0"
+    default_server_port = "4000"
+
+    parser = argparse.ArgumentParser(
+        description="Generate social sharing preview images for each council in a given CSV"
+    )
+    parser.add_argument(
+        "-i",
+        "--input",
+        default="_data/councils.csv",
+        help="Path to the councils.csv file"
+    )
+    parser.add_argument(
+        "-o",
+        "--output",
+        default="static/img/social-previews",
+        help="Path to the output directory for generated images"
+    )
+    parser.add_argument(
+        "-u",
+        "--url",
+        default=f"{default_server_scheme}://{default_server_host}:{default_server_port}",
+        help="URL to take screenshots from when generating images"
+    )
+    parser.add_argument(
+        "-s",
+        "--start-server",
+        action="store_true",
+        help=f"Start a local jekyll server in the background, at {default_server_host}:{default_server_port}"
+    )
+
+    args = parser.parse_args()
+
+    if args.start_server:
+        tqdm.write(
+            f"Waiting for Jekyll server to start at {default_server_host}:{default_server_port} …"
+        )
+        subprocess.Popen(
+            [
+                "bundle",
+                "exec",
+                "jekyll",
+                "serve",
+                "--config",
+                "_config.yml,_config_dev.yml",
+                "--host",
+                default_server_host,
+                "--port",
+                default_server_port,
+                "--no-watch",
+            ]
+        )
+        wait_for_server(f"{default_server_scheme}://{default_server_host}:{default_server_port}")
+
+    councils = []
+
+    try:
+        with open(args.input, mode='r', newline='', encoding='utf-8') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                councils.append(row)
+    except FileNotFoundError:
+        print(f"Error: The file '{args.input}' was not found.")
+    except Exception as e:
+        print(f"Error: {e}")
+
+    tqdm.write(
+        f"Generating council preview images into {args.output}"
+    )
+
+    for council in tqdm(councils, leave=False):
+        generate_preview_image(council, args.url, args.output)
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,60 @@
+{%- assign council = site.data.councils | where: "council_slug", page.council_slug | first -%}
+<!DOCTYPE html>
+<html lang="en" class="no-js {% if council.ned == "1" or council.ned == "2" or council.ned == "3" %}has-ned{% else %}no-ned{% endif %}">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="initial-scale=1, viewport-fit=cover">
+    <link rel="stylesheet" href="{{ '/static/css/social.css' | relative_url }}">
+</head>
+<body>
+    <h1>
+        {{ council.council_name }}
+      {% if council.ned == "1" %}
+        has declared a nature emergency
+      {% elsif council.ned == "2" %}
+        declared a joint climate and nature emergency
+      {% elsif council.ned == "3" %}
+        passed a nature emergency motion
+      {% else %}
+        has not declared a nature emergency
+      {% endif %}
+    </h1>
+  {% if council.ned_date_passed %}
+    <p>in {{ council.ned_date_passed | date: '%Y' }}</p>
+  {% endif %}
+    <div class="social-scorecard">
+        <div>
+          {% if council.ned == "1" or council.ned == "2" or council.ned == "3" %}
+            {%- include icons/tick.svg classes="text-success" -%}
+          {% else %}
+            {%- include icons/cross.svg classes="text-error" -%}
+          {% endif %}
+            <p>Nature Emergency {% if council.ned == "3" %}motion{% else %}declaration{% endif %}</p>
+        </div>
+        <div>
+          {% if council.priority_1 == "1" %}
+            {%- include icons/tick.svg classes="text-success" -%}
+          {% else %}
+            {%- include icons/cross.svg classes="text-error" -%}
+          {% endif %}
+            <p>{{ site.data.priorities["priority_1"].short_name }}</p>
+        </div>
+        <div>
+          {% if council.priority_2 == "1" %}
+            {%- include icons/tick.svg classes="text-success" -%}
+          {% else %}
+            {%- include icons/cross.svg classes="text-error" -%}
+          {% endif %}
+            <p>{{ site.data.priorities["priority_2"].short_name }}</p>
+        </div>
+        <div>
+          {% if council.priority_3 == "1" %}
+            {%- include icons/tick.svg classes="text-success" -%}
+          {% else %}
+            {%- include icons/cross.svg classes="text-error" -%}
+          {% endif %}
+            <p>{{ site.data.priorities["priority_3"].short_name }}</p>
+        </div>
+    </div>
+</body>

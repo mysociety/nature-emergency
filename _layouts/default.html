@@ -5,6 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="initial-scale=1, viewport-fit=cover">
     <title>{% if page.title %}{{ page.title | escape }} | {% endif %}{{ site.title | escape }}</title>
+    <meta property="og:url" content="{{ page.url | absolute_url }}">
+    <meta property="og:title" content="{{ page.title | default: site.title }}">
+    <meta property="og:site_name" content="{{ site.title }}">
+    <meta property="og:description" name="description" content="{{ page.description | default: site.description }}">
+    <meta property="og:type" content="website">
+  {%- if page.council_slug %}
+    <meta property="og:image" content="{{ page.council_slug | append: '.png' | prepend: '/static/img/social-previews/' | absolute_url }}">
+  {%- else %}
+    <meta property="og:image" content="{{ '/static/img/social-preview.png' | absolute_url }}">
+  {%- endif %}
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="675">
     <link rel="stylesheet" href="{{ '/static/css/all.css' | relative_url }}">
     <link rel="icon" type="image/x-icon" href="{{ '/favicon.ico' | relative_url }}">
   {% if site.gtag_id %}

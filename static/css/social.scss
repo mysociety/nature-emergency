@@ -1,0 +1,114 @@
+---
+---
+
+@import "variables";
+
+// Social graphics specific variable overrides
+$line-height-base: 1.2;
+$line-height-sm: 1;
+$line-height-lg: 1.5;
+$h1-font-size: 2rem;
+$h2-font-size: 1.75rem;
+$h3-font-size: 1.5rem;
+$h4-font-size: 1.25rem;
+$h5-font-size: 1.125rem;
+$h6-font-size: 1rem;
+$font-sizes: (
+  1: $h1-font-size,
+  2: $h2-font-size,
+  3: $h3-font-size,
+  4: $h4-font-size,
+  5: $h5-font-size,
+  6: $h6-font-size
+);
+$headings-line-height: 1.1;
+
+@import "bootstrap/scss/mixins/banner";
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins";
+@import "bootstrap/scss/utilities";
+
+@import "utilities";
+
+@include bsBanner("");
+
+@import "fonts";
+
+@import "bootstrap/scss/root";
+@import "bootstrap/scss/reboot";
+@import "bootstrap/scss/type";
+
+@import "bootstrap/scss/helpers";
+@import "bootstrap/scss/utilities/api";
+
+:root {
+    font-size: 2.5vw; // scale all fonts based on viewport width (optimised for 1200x630 social graphic)
+    height: 100%;
+}
+
+.has-ned {
+    --#{$prefix}body-bg: var(--#{$prefix}success);
+    --#{$prefix}body-color: var(--#{$prefix}white);
+}
+
+.no-ned {
+    --#{$prefix}body-bg: var(--#{$prefix}error);
+    --#{$prefix}body-color: var(--#{$prefix}white);
+}
+
+body {
+    padding: 2rem 4rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+h1 {
+    text-wrap: balance;
+}
+
+.social-scorecard {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    box-shadow: $box-shadow-lg;
+    font-size: 0.75rem;
+
+    & > div {
+        --#{$prefix}body-bg: var(--#{$prefix}white);
+        --#{$prefix}body-color: var(--#{$prefix}gray-900);
+
+        background-color: rgba(255, 255, 255, 0.9);
+        color: var(--#{$prefix}body-color);
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+        gap: 0.5rem;
+        padding: 1rem;
+        margin-top: 0.75rem;
+
+        &:first-child {
+            background-color: #fff;
+            @include border-start-radius(0.25rem);
+        }
+
+        &:last-child {
+            @include border-end-radius(0.25rem);
+        }
+    }
+
+    & > div + div {
+        border-left: 1px solid rgba(0, 0, 0, 0.2);
+    }
+
+    svg {
+        width: 1.5rem;
+        height: 1.5rem;
+    }
+
+    p {
+        margin-bottom: 0;
+    }
+}
