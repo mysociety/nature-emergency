@@ -158,4 +158,28 @@ $(function(){
             }
         }
     });
+
+    $('[data-copy-content]').on('click', function(e){
+        e.stopPropagation();
+        if (navigator.clipboard) {
+            var $el = $(this);
+            var $feedback = $el.find('[data-copy-feedback]');
+            var $target = $($el.attr('data-copy-content'));
+            var successHTML = $el.attr('data-copy-success');
+            var originalHTML = $feedback.html();
+
+            var copyHTML = new Blob([ $target.html() ], { type: 'text/html' });
+            var copyText = new Blob([ $target.text() ], { type: 'text/plain' });
+            var clipboardData = new ClipboardItem({ "text/html": copyHTML, "text/plain": copyText });
+
+            navigator.clipboard.write([ clipboardData ]).then(function(){
+                $feedback.html(successHTML);
+                $el.attr('data-copied', true);
+                setTimeout(function(){
+                    $feedback.html(originalHTML);
+                    $el.removeAttr('data-copied');
+                }, 2000);
+            });
+        }
+    });
 });

@@ -1,0 +1,14 @@
+@keyframes success-ping {
+    0% {
+        box-shadow: 0 0 0 0rem rgba($wt-action, 0.5);
+    }
+    100% {
+        box-shadow: 0 0 0 10rem rgba($wt-action, 0);
+    }
+}
+
+
+// Visual flash when pressing "copy" button.
+[data-copied] {
+    animation: 500ms linear success-ping;
+}
