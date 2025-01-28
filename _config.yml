@@ -6,13 +6,6 @@ host: 0.0.0.0
 
 # gtag_id: "…"
 
-defaults:
-  -
-    scope:
-      path: "councils"
-    values:
-      canonical: "/nature-emergency/"
-
 exclude:
   - .browserlistrc
   - .ruby-version
