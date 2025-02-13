@@ -1,0 +1,84 @@
+$color-facebook-blue: #1877f2;
+$color-twitter-black: #14171a;
+$color-threads-black: #000;
+$color-bluesky-blue: #1083fe;
+$color-linkedin-blue: #0a66c2;
+$color-whatsapp-green: #25d366;
+
+.social-sharing-buttons {
+    --icon-size: 2.5rem;
+
+    list-style: none;
+    margin: 0;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: map-get($spacers, 3);
+    flex-wrap: wrap;
+
+    @include media-breakpoint-up(sm){
+        --icon-size: 3rem;
+    }
+
+    @include media-breakpoint-up(md){
+        --icon-size: 4rem;
+        gap: map-get($spacers, 4);
+    }
+
+    a, button {
+        display: block;
+        width: var(--icon-size);
+        padding-top: var(--icon-size);
+        height: 0;
+        overflow: hidden;
+        border-radius: 100%;
+
+        background-color: var(--#{$prefix}blue);
+        background-image: var(--icon-url);
+        background-position: 50% 50%;
+        background-repeat: no-repeat;
+        background-size: 50%;
+
+        border: none;
+        outline: none;
+
+        &:hover,
+        &:focus-visible {
+            background-color: var(--#{$prefix}accent);
+        }
+
+        &:focus-visible {
+            box-shadow: 0 0 0 #{$btn-focus-width} $focus-ring-color;
+        }
+    }
+
+    a[href*="facebook.com"] {
+        --icon-url: url("../img/facebook-white.svg");
+    }
+
+    a[href*="x.com"], a[href*="twitter.com"] {
+        --icon-url: url("../img/x-white.svg");
+    }
+
+    a[href*="threads.net"] {
+        --icon-url: url("../img/threads-white.svg");
+    }
+
+    a[href*="bsky.app"] {
+        --icon-url: url("../img/bluesky-white.svg");
+    }
+
+    a[href*="linkedin.com"] {
+        --icon-url: url("../img/linkedin-white.svg");
+    }
+
+    a[href*="whatsapp.com"] {
+        --icon-url: url("../img/whatsapp-white.svg");
+    }
+
+    [data-copy-attribute] {
+        --icon-url: url("../img/link-white.svg");
+    }
+}

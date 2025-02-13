@@ -3,6 +3,7 @@ layout: default
 ---
 {% assign council = site.data.councils | where: "council_slug", page.council_slug | first %}
 {% assign similarities = site.data.similarities | where: "gss_a", council.council_gss %}
+{% assign sharing_url = page.council_slug | prepend: '/councils/' | absolute_url %}
 
 <div class="container my-4 my-sm-5 my-lg-6">
     <h1 class="display-1 text-center">{{ council.council_name }}</h1>
@@ -144,6 +145,17 @@ layout: default
             </ul>
         </div>
     </div>
+
+    <h2 class="mt-4 mt-lg-5 mb-3 mb-lg-4 text-center">Share this page</h2>
+
+    <ul class="social-sharing-buttons">
+        <li><a href="https://www.facebook.com/sharer.php?u={{ sharing_url|urlencode }}" target="_blank" title="Facebook">Facebook</a></li>
+        <li><a href="https://twitter.com/intent/tweet?url={{ sharing_url|urlencode }}" target="_blank" title="X (Twitter)">X (Twitter)</a></li>
+        <li><a href="https://bsky.app/intent/compose?text={{ sharing_url|urlencode }}" target="_blank" title="Bluesky">Bluesky</a></li>
+        <li><a href="https://www.linkedin.com/sharing/share-offsite/?url={{ sharing_url|urlencode }}" target="_blank" title="LinkedIn">LinkedIn</a></li>
+        <li><a href="https://api.whatsapp.com/send?text={{ sharing_url|urlencode }}" target="_blank" title="WhatsApp">WhatsApp</a></li>
+        <li><button type="button" data-copy-attribute="{{ sharing_url }}" data-copy-success="Link copied!" title="Copy link"><span data-copy-feedback>Copy link</span></button></li>
+    </ul>
 
     <div class="mt-5 mt-lg-6">
         {% include supporter-cta.html location="index" %}
