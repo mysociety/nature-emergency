@@ -20,17 +20,6 @@
     <meta property="og:image:height" content="675">
     <link rel="stylesheet" href="{{ '/static/css/all.css' | relative_url }}">
     <link rel="icon" type="image/x-icon" href="{{ '/favicon.ico' | relative_url }}">
-  {% if site.gtag_id %}
-    <script defer>Object.defineProperty(document,"cookie",{get:function(){var t=Object.getOwnPropertyDescriptor(Document.prototype,"cookie").get.call(document);return t.trim().length>0&&(t+="; "),t+="_ga=GA1.1."+Math.floor(1e9*Math.random())+"."+Math.floor(1e9*Math.random())},set:function(t){t.trim().startsWith("_ga")||Object.getOwnPropertyDescriptor(Document.prototype,"cookie").set.call(document,t)}});</script>
-    <script defer src="https://www.googletagmanager.com/gtag/js?id={{ site.gtag_id }}"></script>
-    <script>
-        var client_id = Math.floor(Math.random() * 1000000000) + '.' + Math.floor(Math.random() * 1000000000);
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config','{{ site.gtag_id }}', {'client_id': client_id, 'cookie_expires': 1 });
-    </script>
-  {% endif %}
     <script>document.documentElement.classList.remove('no-js'); document.documentElement.classList.add('js');</script>
 </head>
 <body>
