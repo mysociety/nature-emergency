@@ -1,3 +1,9 @@
+.container-readable {
+    @include make-container();
+    max-width: 40rem;
+}
+
+.container-readable,
 .readable {
     h2 {
         margin-top: 3rem;

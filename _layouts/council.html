@@ -5,7 +5,7 @@ layout: default
 {% assign similarities = site.data.similarities | where: "gss_a", council.council_gss %}
 
 <div class="container my-4 my-sm-5 my-lg-6">
-    <h1>{{ council.council_name }}</h1>
+    <h1 class="display-1 text-center">{{ council.council_name }}</h1>
 
     <dl class="council-metadata-grid my-4 my-lg-5">
         <dt>Council type</dt>
@@ -149,8 +149,8 @@ layout: default
 {% if similarities %}
 <div class="bg-light py-4 py-sm-5 py-lg-6">
     <div class="container">
-        <h2>How does this council compare?</h2>
-        <p>Here are the {{ similarities|size }} most similar councils, based on a combination of distance, urban/rural split, emissions profile, and deprivation.</p>
+        <h2 class="text-center">How does this council compare?</h2>
+        <p class="text-center">Here are the {{ similarities|size }} most similar councils, based on a combination of distance, urban/rural split, emissions profile, and deprivation.</p>
         <div class="mini-scorecard table-responsive mt-4 mt-lg-5">
             <table class="table mb-0">
                 <thead>
@@ -237,7 +237,7 @@ layout: default
 {% endif %}
 
 <div class="py-4 border-top">
-    <div class="container text-balance">
+    <div class="container text-balance text-center">
         {% include corrections.html location="council" %}
     </div>
 </div>

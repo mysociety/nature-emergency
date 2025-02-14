@@ -1,0 +1,17 @@
+.figure-wt {
+    position: relative;
+
+    img {
+        display: block;
+    }
+
+    figcaption {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        background: var(--bs-body-bg);
+        color: var(--bs-body-color);
+        padding: 0.4em 0.5em;
+        line-height: 1;
+    }
+}

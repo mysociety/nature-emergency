@@ -53,11 +53,15 @@
 @import "awesomplete/scss/base";
 // @import "awesomplete/scss/theme";
 
+@import "type";
 @import "buttons";
 @import "links";
+@import "images";
 @import "forms";
 @import "search-input";
 @import "header";
+@import "footer";
+@import "hero";
 @import "scorecard";
 @import "awesomplete-theme";
 @import "priorities";

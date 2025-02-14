@@ -1,34 +1,42 @@
-<nav class="wt-nav">
-    <div class="container-md">
-        <div class="wt-nav__primary">
-            <a class="wt-nav__brand" href="{{ '/' | relative_url }}">Woodland Trust</a>
-            <button class="wt-nav__toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSecondary" aria-controls="navbarSecondary" aria-expanded="false">
-                <div class="wt-nav__toggler__icon">
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </div>
-                <span class="wt-nav__toggler__show">Menu</span>
-                <span class="wt-nav__toggler__hide">Close</span>
-            </button>
-        </div>
-        <div class="wt-nav__secondary collapse" id="navbarSecondary">
-            <ul class="nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ '/about/' | relative_url }}">About this data</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ '/case-studies/' | relative_url }}">Case studies</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ '/motion/' | relative_url }}">Example motion</a>
-                </li>
-            </ul>
-            <form role="search" class="search-input">
-                <input class="form-control" name="pc" type="search" placeholder="Find a council" aria-label="Find a council">
-                <button type="submit" aria-label="Search">{%- include icons/search.svg -%}</button>
-            </form>
-        </div>
+<header class="wt-nav">
+    <div class="wt-nav__mobile">
+        <a class="wt-nav__brand" href="{{ '/' | relative_url }}">Nature Emergency UK</a>
+        <button class="wt-nav__toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarDesktop" aria-controls="navbarDesktop" aria-expanded="false">
+            <div class="wt-nav__toggler__icon">
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            <span class="wt-nav__toggler__show">Menu</span>
+            <span class="wt-nav__toggler__hide">Close</span>
+        </button>
     </div>
-</nav>
+    <nav class="collapse" id="navbarDesktop">
+        <div class="wt-nav__secondary">
+            <div class="container-md">
+                <a class="wt-nav__brand" href="https://www.woodlandtrust.org.uk/">Woodland Trust</a>
+                <form role="search" class="search-input">
+                    <input class="form-control" name="pc" type="search" placeholder="Find a council" aria-label="Find a council">
+                    <button type="submit" aria-label="Search">{%- include icons/search.svg -%}</button>
+                </form>
+            </div>
+        </div>
+        <div class="wt-nav__primary">
+            <div class="container-md">
+                <a class="wt-nav__brand" href="{{ '/' | relative_url }}">Nature Emergency UK</a>
+                <ul class="nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ '/about/' | relative_url }}">About this data</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ '/case-studies/' | relative_url }}">Case studies</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ '/motion/' | relative_url }}">Example motion</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

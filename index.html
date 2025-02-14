@@ -11,18 +11,24 @@ layout: default
 {%- assign councils_priority_2_yes = site.data.councils | where: "priority_2", "1" | size -%}
 {%- assign councils_priority_3_yes = site.data.councils | where: "priority_3", "1" | size -%}
 
-<div class="container my-4 my-sm-5 my-lg-6">
-    <h1 class="mw-50rem mb-3 mb-lg-4 lh-1">Has your council declared a nature emergency?</h1>
-    <p class="mw-40rem fs-5">We are in a nature emergency. The four nations of the UK are among the most nature-depleted in the world, with 35% of species populations in decline and 13% under threat of extinction.</p>
-    <p class="mw-40rem fs-5 mb-0">But there’s hope. By working together, we can turn the tide to restore habitats, improve biodiversity, and better connect landscapes. Together, we can protect wildlife and create a brighter, healthier future for nature and our communities.</p>
+<div class="wt-hero">
+    <div class="container">
+        <h1 class="display-1 lh-1 mb-0 text-center">Has your council declared a nature emergency?</h1>
+    </div>
+    <span class="wt-hero__credit">Credit: Adam Burton / WTML</span>
+</div>
+
+<div class="container-readable my-4 my-sm-5 my-lg-6">
+    <h2 class="mb-3 mb-lg-4 mt-0 lh-1">We’re in a nature emergency.</h2>
+    <p class="mb-0">The UK nations are among the most nature-depleted in the world. But there’s hope. By acting together, we can turn restore nature, creating a brighter, healthier future for wildlife and people.</p>
 </div>
 
 <div class="bg-light py-4 py-sm-5 py-lg-6 my-4 my-sm-5 my-lg-6">
-    <div class="container">
-        <h2 class="mw-40rem mb-3 mb-lg-4 lh-1">We’re urging all local authorities to declare a nature emergency</h2>
-        <p class="mw-40rem">To help nature recover, we all need to play our part—and local councils hold the power to drive the change nature urgently needs. Alongside local communities working to protect and restore nature, a growing number of local authorities are declaring nature emergencies. This is an important first step in acknowledging the challenge.</p>
-        <p class="mw-40rem">To demonstrate commitment to meaningful action for nature’s recovery, we want to see declarations supported by:</p>
-        <div class="my-4 mw-40rem d-flex gap-3 flex-column">
+    <div class="container-readable">
+        <h2 class="mb-3 mb-lg-4 mt-0 lh-1">We’re urging all local authorities to declare a nature emergency</h2>
+        <p>To help nature recover, we all need to play our part—and local councils hold the power to drive the change nature urgently needs. Alongside local communities working to protect and restore nature, a growing number of local authorities are declaring nature emergencies. This is an important first step in acknowledging the challenge.</p>
+        <p>To demonstrate commitment to meaningful action for nature’s recovery, we want to see declarations supported by:</p>
+        <div class="my-4 d-flex gap-3 flex-column">
             <div class="d-flex gap-3 align-items-center">
                 {% include images/priority-1.svg classes="text-priority-1 mt-n2 mb-2 mb-sm-n2 flex-grow-0 flex-shrink-0" width="60" height="60" %}
                 <p class="fs-5 lh-md mb-0">development of a nature emergency action plan</p>
@@ -36,13 +42,13 @@ layout: default
                 <p class="fs-5 lh-md mb-0">plans to manage 30% of council land for nature recovery by 2030</p>
             </div>
         </div>
-        <p class="mw-40rem mb-0">These actions were chosen by a panel of environmental organisations as the most meaningful indicators of nature recovery. See which local authorities have already made a declaration and taken these significant steps, below.</p>
+        <p class="mb-0">These actions were chosen by a panel of environmental organisations as the most meaningful indicators of nature recovery. See which local authorities have already made a declaration and taken these significant steps, below.</p>
     </div>
 </div>
 
 <div class="container my-4 my-xl-5" id="councils">
 
-    <h2 class="mb-3 mb-lg-4">Browse the scores</h2>
+    <h2 class="mb-4 mb-lg-5 text-center display-5">Browse the scores</h2>
 
     <div class="scorecard">
         <div class="scorecard__summary">
@@ -268,19 +274,19 @@ layout: default
         </div>
     </div>
 
-    <div class="mt-4 mt-lg-5 text-balance">
+    <div class="mt-4 mt-lg-5 text-balance text-center">
         {% include corrections.html location="council" %}
     </div>
 </div>
 
 <div class="bg-light py-4 py-sm-5 py-lg-6 mt-4 mt-sm-5 mt-lg-6">
-    <div class="container">
-        <h2 class="mw-40rem mb-3 mb-lg-4 lh-1">Why declare a nature emergency?</h2>
-        <p class="mw-40rem">Nature is integral to our culture, to a healthy society, and to a thriving and sustainable economy. Putting these plans into practice and working with communities and partners will show bold leadership in creating nature-rich places for wildlife and for people to live, work and play. It will also make a crucial contribution to the UK’s commitment to protect and manage 30% of UK land for nature by 2030.</p>
+    <div class="container-readable">
+        <h2 class="mb-3 mb-lg-4 mt-0 lh-1">Why declare a nature emergency?</h2>
+        <p>Nature is integral to our culture, to a healthy society, and to a thriving and sustainable economy. Putting these plans into practice and working with communities and partners will show bold leadership in creating nature-rich places for wildlife and for people to live, work and play. It will also make a crucial contribution to the UK’s commitment to protect and manage 30% of UK land for nature by 2030.</p>
 
-        <h2 class="mw-40rem mb-3 mt-5 mt-lg-6 mb-lg-4 lh-1">Next steps</h2>
-        <p class="mw-35rem">We want to support local authorities to declare nature emergencies and take decisive steps to protect and restore their wildlife.</p>
-        <ul class="mw-40rem list-unstyled">
+        <h2 class="mb-3 mt-5 mt-lg-6 mb-lg-4 lh-1">Next steps</h2>
+        <p>We want to support local authorities to declare nature emergencies and take decisive steps to protect and restore their wildlife.</p>
+        <ul class="list-unstyled">
             {% include next-steps.html location="index" %}
         </ul>
     </div>

@@ -2,12 +2,8 @@ $wt-nav-mobile-breakpoint: 'md'; // needs to match the container-* class in the 
 $wt-nav-mobile-padding: $spacer;
 
 .wt-nav {
-    background: var(--#{$prefix}utility);
+    background: var(--#{$prefix}blue);
     color: var(--#{$prefix}white);
-
-    @include media-breakpoint-up($wt-nav-mobile-breakpoint) {
-        padding: map-get($spacers, 4) 0;
-    }
 
     .container,
     [class^="container-"] {
@@ -21,29 +17,110 @@ $wt-nav-mobile-padding: $spacer;
             justify-content: space-between;
         }
     }
+
+    .collapse {
+        @include media-breakpoint-up($wt-nav-mobile-breakpoint) {
+            display: block; // override .collapse:not(.show)
+        }
+    }
 }
 
-.wt-nav__primary {
+.wt-nav__brand,
+.wt-nav__toggler {
+    text-decoration: none;
+
+    &:focus {
+        outline: none;
+        box-shadow: 0 0 0 .2rem $wt-action;
+    }
+}
+
+.wt-nav__mobile {
     display: flex;
     align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-left: #{$container-padding-x * 0.5};
+
+    @include media-breakpoint-up($wt-nav-mobile-breakpoint) {
+        display: none;
+    }
+
+    .wt-nav__brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+
+        color: var(--#{$prefix}white);
+        font-weight: 900;
+        font-stretch: 75%; // condensed
+        text-transform: uppercase;
+        font-size: 1.25rem;
+        line-height: 1;
+        text-wrap: balance;
+
+        &:before {
+            content: "";
+            width: 46px;
+            height: 35px;
+            flex: 0 0 auto;
+            background: transparent url('../img/wt-leaves-white.svg') 50% 50% no-repeat;
+        }
+    }
 }
 
+.wt-nav__primary,
 .wt-nav__secondary {
     display: flex;
     flex-direction: column;
     background-color: var(--#{$prefix}gray-900);
     color: var(--#{$prefix}white);
-    padding: 0.5rem 0;
 
-    form {
-        margin: 0.5rem 1rem;
+    .wt-nav__brand {
+        display: none;
     }
+}
+
+.wt-nav__secondary {
+    padding: 1rem 1rem 0 1rem;
+
+    @include media-breakpoint-up($wt-nav-mobile-breakpoint) {
+        flex-direction: row;
+        justify-content: space-between;
+
+        color: var(--#{$prefix}black);
+        background-color: var(--#{$prefix}white);
+        padding: map-get($spacers, 3) 0;
+
+        .wt-nav__brand {
+            display: block;
+            overflow: hidden;
+            height: 0;
+            padding-top: 34px;
+            width: 160px;
+            background: transparent url('../img/wt-logo-horizontal-color.svg') 50% 50% no-repeat;
+            background-size: contain;
+        }
+    }
+
+    .form-control {
+        padding: 0.5rem 0.75rem; // down from standard (0.75rem 1rem) to save some vertical space
+    }
+}
+
+.wt-nav__primary {
+    padding: 0.5rem 0;
 
     .nav {
         --#{$prefix}nav-link-font-weight: 700;
         --#{$prefix}nav-link-color: var(--#{$prefix}white);
         --#{$prefix}nav-link-hover-color: var(--#{$prefix}white);
         flex-direction: column;
+
+        @include media-breakpoint-up($wt-nav-mobile-breakpoint) {
+            flex-direction: row;
+            justify-content: flex-end;
+        }
     }
 
     .nav-link {
@@ -54,41 +131,34 @@ $wt-nav-mobile-padding: $spacer;
     }
 
     @include media-breakpoint-up($wt-nav-mobile-breakpoint) {
-        display: flex !important; // override .collapse:not(.show)
-        flex-direction: row;
-        align-items: center;
-        gap: $spacer;
-        background: transparent;
+        background-color: var(--#{$prefix}blue);
+        padding: map-get($spacers, 4) 0;
 
-        form {
-            margin: 0;
+        .wt-nav__brand {
+            display: block;
+
+            color: var(--#{$prefix}white);
+            font-weight: 900;
+            font-stretch: 75%; // condensed
+            text-transform: uppercase;
+            font-size: 2rem;
+            line-height: 1;
+            text-wrap: balance;
         }
 
-        .nav {
-            flex-direction: row;
-            justify-content: flex-end;
+        .nav-link {
+            border-radius: $border-radius-sm;
+
+            &:focus,
+            &:hover {
+                background-color: var(--#{$prefix}white);
+                color: var(--#{$prefix}blue);
+            }
         }
     }
-}
 
-.wt-nav__brand {
-    display: block;
-    height: 0;
-    white-space: nowrap;
-    overflow: hidden;
-
-    width: 168px;
-    padding-top: 36px;
-    background: transparent url('../img/wt-logo-horizontal.svg') 50% 50% no-repeat;
-    background-size: contain;
-
-    margin: $wt-nav-mobile-padding auto $wt-nav-mobile-padding $wt-nav-mobile-padding;
-
-    @include media-breakpoint-up(md) {
-        width: 114px;
-        padding-top: 72px;
-        background-image: url('../img/wt-logo.svg');
-        margin: 0;
+    @include media-breakpoint-up("lg") {
+        padding: map-get($spacers, 5) 0;
     }
 }
 
@@ -105,14 +175,6 @@ $wt-nav-mobile-padding: $spacer;
 
     @include media-breakpoint-up($wt-nav-mobile-breakpoint) {
         display: none;
-    }
-}
-
-.wt-nav__brand,
-.wt-nav__toggler {
-    &:focus {
-        outline: none;
-        box-shadow: 0 0 0 .2rem $wt-action;
     }
 }
 

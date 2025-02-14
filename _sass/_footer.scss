@@ -1,0 +1,9 @@
+.wt-footer {
+    background: var(--#{$prefix}blue);
+    color: var(--#{$prefix}white);
+    padding: map-get($spacers, 5);
+
+    @include media-breakpoint-up("lg") {
+        padding: map-get($spacers, 6);
+    }
+}

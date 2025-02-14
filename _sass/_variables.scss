@@ -45,7 +45,7 @@ $priority-colors: (
 // even if we don’t plan on using them ourselves.
 $white: $wt-white;
 $black: $wt-black;
-$blue: #0d6efd;
+$blue: $wt-spiked-speedwell;
 $indigo: #6610f2;
 $purple: $wt-facts-stats-data;
 $pink: $wt-ragged-robin;
@@ -199,6 +199,8 @@ $font-sizes: (
 $headings-font-weight: 700;
 
 $display-font-weight: 700;
+
+$lead-font-size: $font-size-base * 1.5;
 
 $blockquote-font-size: 1rem;
 
