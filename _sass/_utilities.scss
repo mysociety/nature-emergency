@@ -112,6 +112,13 @@ $utilities: map-merge(
                 responsive: true
             ),
         ),
+        "text-wrap": (
+            property: text-wrap,
+            class: text,
+            values: (
+                balance: balance,
+            )
+        ),
         "width": map-merge(
             map-get($utilities, "width"),
             (
