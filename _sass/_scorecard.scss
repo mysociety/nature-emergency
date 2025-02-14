@@ -249,11 +249,11 @@ body:has(.scorecard) {
     }
 }
 
-.scorecard__summary__tile__of-matches {
+.scorecard__summary__tile__of-matching {
     display: none;
 
     .scorecard:has([data-filters]) & {
-        display: block;
+        display: inline;
     }
 }
 

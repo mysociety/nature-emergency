@@ -117,7 +117,7 @@ $(function(){
 
         // Update the stats above the table.
         var $visibleRows = $table.find('tbody tr').filter(':visible');
-        $('#scorecard-filtered-count').text($visibleRows.length);
+        $('.scorecard-filtered-count').text($visibleRows.length);
         $.each({
             'ned': [1, 2, 3],
             'priority-1': [1],
@@ -128,12 +128,14 @@ $(function(){
                 var selector = $.map(values, function(value){
                     return '[data-' + slug + '="' + value + '"]';
                 }).join(', ');
-                var $matches = $visibleRows.filter(selector);
-                var percent = Math.round(($matches.length / $visibleRows.length) * 100);
+                var matches = $visibleRows.filter(selector).length;
+                var percent = Math.round((matches / $visibleRows.length) * 100);
             } else {
+                var matches = 0;
                 var percent = 0; // prevent NaN when no matches
             }
-            $('#scorecard-summary-' + slug).text(percent);
+            $('#scorecard-summary-' + slug + '-absolute').text(matches);
+            $('#scorecard-summary-' + slug + '-percent').text(percent);
         });
     });
 
