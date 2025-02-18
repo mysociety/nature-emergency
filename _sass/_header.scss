@@ -101,6 +101,10 @@ $wt-nav-mobile-padding: $spacer;
             background: transparent url('../img/wt-logo-horizontal-color.svg') 50% 50% no-repeat;
             background-size: contain;
         }
+
+        .search-input .form-control {
+            min-width: 20em;
+        }
     }
 
     .form-control {
