@@ -7,7 +7,8 @@ import pandas as pd
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Generate a CSV of council similarities, by GSS code."
+        description="Generate a CSV of council similarities, by GSS code.",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
         "-o",

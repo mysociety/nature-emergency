@@ -404,7 +404,8 @@ def write_councils_data(councils_data, output_file):
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Convert Google Sheets HTML export to clean data CSV."
+        description="Convert Google Sheets HTML export to clean data CSV.",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
         "-i",

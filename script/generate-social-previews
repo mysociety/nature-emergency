@@ -65,7 +65,8 @@ def main():
     default_server_port = "4000"
 
     parser = argparse.ArgumentParser(
-        description="Generate social sharing preview images for each council in a given CSV"
+        description="Generate social sharing preview images for each council in a given CSV",
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter,
     )
     parser.add_argument(
         "-i",
