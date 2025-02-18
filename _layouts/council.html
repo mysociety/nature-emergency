@@ -146,9 +146,9 @@ layout: default
     </div>
 </div>
 
-{% if similarities %}
 <div class="bg-light py-4 py-sm-5 py-lg-6">
-    <div class="container">
+  {% if similarities %}
+    <div class="container mb-4 mb-lg-5">
         <h2 class="text-center">How does this council compare?</h2>
         <p class="text-center">Here are the {{ similarities|size }} most similar councils, based on a combination of distance, urban/rural split, emissions profile, and deprivation.</p>
         <div class="mini-scorecard table-responsive mt-4 mt-lg-5">
@@ -233,11 +233,18 @@ layout: default
             </table>
         </div>
     </div>
-</div>
-{% endif %}
-
-<div class="py-4 border-top">
+  {% endif %}
     <div class="container text-balance text-center">
         {% include corrections.html location="council" %}
+    </div>
+</div>
+
+<div class="py-4 py-sm-5 py-lg-6">
+    <div class="container-readable">
+        <p class="text-center text-balance">Nature Emergency UK has been developed by the Woodland Trust in association with mySociety and Climate Emergency UK.</p>
+        <div class="d-flex align-items-center justify-content-center gap-4 gap-lg-5 mt-4">
+            <a href="https://www.mysociety.org" class="unstyled-link"><img src="{{ '/static/img/mysociety-logo.svg' | relative_url }}" alt="mySociety" width="152" height="32" class="d-block"></a>
+            <a href="https://climateemergency.uk" class="unstyled-link"><img src="{{ '/static/img/ceuk-logo.png' | relative_url }}" alt="Climate Emergency UK" width="137" height="48" class="d-block"></a>
+        </div>
     </div>
 </div>

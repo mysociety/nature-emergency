@@ -9,6 +9,7 @@
 
     h1 {
         text-shadow: 0 0 1rem rgba(0, 0, 0, 0.2);
+        line-height: 0.9;
     }
 
     @include media-breakpoint-up('sm') {
