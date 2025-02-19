@@ -61,13 +61,11 @@ body:has(.scorecard) {
     border-radius: var(--#{$prefix}border-radius);
     border: 1px solid var(--#{$prefix}border-color);
 
-    @include media-breakpoint-up(sm) {
-        display: flex;
-        flex-direction: column;
-        max-height: calc(100dvh - 4rem);
-        scroll-snap-align: start;
-        scroll-margin-top: 2rem;
-    }
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100dvh - 4rem);
+    scroll-snap-align: start;
+    scroll-margin-top: 2rem;
 }
 
 .scorecard__data__header,
@@ -128,6 +126,10 @@ body:has(.scorecard) {
 
         tr:has(a){
             cursor: pointer;
+        }
+
+        tr > .council-name {
+            min-width: 15em !important;
         }
 
         tr > .priority-0,
