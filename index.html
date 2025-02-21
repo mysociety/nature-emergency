@@ -23,7 +23,7 @@ layout: default
     <p class="mb-0">The UK nations are among the most nature-depleted in the world. But there’s hope. By acting together, we can restore nature, creating a brighter, healthier future for wildlife and people.</p>
 </div>
 
-<div class="bg-light py-4 py-sm-5 py-lg-6 my-4 my-sm-5 my-lg-6">
+<div class="bg-light py-4 py-sm-5 py-lg-6">
     <div class="container-readable">
         <h2 class="mb-3 mb-lg-4 mt-0 lh-1">We’re urging all local authorities to declare a nature emergency</h2>
         <p>To help nature recover, we all need to play our part—and local councils hold the power to drive the change nature urgently needs. Alongside local communities working to protect and restore nature, a growing number of local authorities are declaring nature emergencies. This is an important first step in acknowledging the challenge.</p>
@@ -46,240 +46,243 @@ layout: default
     </div>
 </div>
 
-<div class="container my-4 my-xl-5" id="councils">
+<div class="overflow-x-hidden py-4 py-xl-5" id="councils">
+    <div class="container">
 
-    <h2 class="mb-4 mb-lg-5 text-center display-5">Browse the scores</h2>
+        <h2 class="mb-4 mb-lg-5 text-center">Browse the scores</h2>
 
-    <div class="scorecard">
-        <div class="scorecard__summary">
-            <div class="scorecard__summary__tile">
-                {% include images/leaf-0.svg classes="text-priority-0-200" %}
-                <div>
-                    <strong class="d-block h1 lh-1">
-                        <span id="scorecard-summary-ned-percent">
-                            {{- councils_ned_yes | divided_by: councils_total | times: 100 | round -}}
-                        </span>%
-                    </strong>
-                    <span class="d-block h6 mb-1">
-                        <span id="scorecard-summary-ned-absolute">{{ councils_ned_yes }}</span>
-                        of
-                        <span class="scorecard-filtered-count">{{ councils_total | round }}</span>
-                        <span class="scorecard__summary__tile__of-matching">matching</span>
-                        councils
-                    </span>
-                    have declared a nature emergency
+        <div class="scorecard">
+            <div class="scorecard__summary">
+                <div class="scorecard__summary__tile">
+                    {% include images/leaf-0.svg classes="text-priority-0-200" %}
+                    <div>
+                        <strong class="d-block h1 lh-1">
+                            <span id="scorecard-summary-ned-percent">
+                                {{- councils_ned_yes | divided_by: councils_total | times: 100 | round -}}
+                            </span>%
+                        </strong>
+                        <span class="d-block h6 mb-1">
+                            <span id="scorecard-summary-ned-absolute">{{ councils_ned_yes }}</span>
+                            of
+                            <span class="scorecard-filtered-count">{{ councils_total | round }}</span>
+                            <span class="scorecard__summary__tile__of-matching">matching</span>
+                            councils
+                        </span>
+                        have declared a nature emergency
+                    </div>
+                </div>
+                <div class="scorecard__summary__tile">
+                    {% include images/leaf-1.svg classes="text-priority-1-200" %}
+                    <div>
+                        <strong class="d-block h1 lh-1">
+                            <span id="scorecard-summary-priority-1-percent">
+                                {{- councils_priority_1_yes | divided_by: councils_total | times: 100 | round -}}
+                            </span>%
+                        </strong>
+                        <span class="d-block h6 mb-1">
+                            <span id="scorecard-summary-priority-1-absolute">{{ councils_priority_1_yes }}</span>
+                            of
+                            <span class="scorecard-filtered-count">{{ councils_total | round }}</span>
+                            <span class="scorecard__summary__tile__of-matching">matching</span>
+                            councils
+                        </span>
+                        have {{ site.data.priorities["priority_1"].description_committed }}
+                    </div>
+                </div>
+                <div class="scorecard__summary__tile">
+                    {% include images/leaf-2.svg classes="text-priority-2-200" %}
+                    <div>
+                        <strong class="d-block h1 lh-1">
+                            <span id="scorecard-summary-priority-2-percent">
+                                {{- councils_priority_2_yes | divided_by: councils_total | times: 100 | round -}}
+                            </span>%
+                        </strong>
+                        <span class="d-block h6 mb-1">
+                            <span id="scorecard-summary-priority-2-absolute">{{ councils_priority_2_yes }}</span>
+                            of
+                            <span class="scorecard-filtered-count">{{ councils_total | round }}</span>
+                            <span class="scorecard__summary__tile__of-matching">matching</span>
+                            councils
+                        </span>
+                        have {{ site.data.priorities["priority_2"].description_committed }}
+                    </div>
+                </div>
+                <div class="scorecard__summary__tile">
+                    {% include images/leaf-3.svg classes="text-priority-3-200" %}
+                    <div>
+                        <strong class="d-block h1 lh-1">
+                            <span id="scorecard-summary-priority-3-percent">
+                                {{- councils_priority_3_yes | divided_by: councils_total | times: 100 | round -}}
+                            </span>%
+                        </strong>
+                        <span class="d-block h6 mb-1">
+                            <span id="scorecard-summary-priority-3-absolute">{{ councils_priority_3_yes }}</span>
+                            of
+                            <span class="scorecard-filtered-count">{{ councils_total | round }}</span>
+                            <span class="scorecard__summary__tile__of-matching">matching</span>
+                            councils
+                        </span>
+                        have {{ site.data.priorities["priority_3"].description_committed }}
+                    </div>
                 </div>
             </div>
-            <div class="scorecard__summary__tile">
-                {% include images/leaf-1.svg classes="text-priority-1-200" %}
-                <div>
-                    <strong class="d-block h1 lh-1">
-                        <span id="scorecard-summary-priority-1-percent">
-                            {{- councils_priority_1_yes | divided_by: councils_total | times: 100 | round -}}
-                        </span>%
-                    </strong>
-                    <span class="d-block h6 mb-1">
-                        <span id="scorecard-summary-priority-1-absolute">{{ councils_priority_1_yes }}</span>
-                        of
-                        <span class="scorecard-filtered-count">{{ councils_total | round }}</span>
-                        <span class="scorecard__summary__tile__of-matching">matching</span>
-                        councils
-                    </span>
-                    have {{ site.data.priorities["priority_1"].description_committed }}
+
+            <div class="scorecard__data">
+                <div class="scorecard__data__header">
+                    <p class="h6 mb-0">
+                        Showing <span class="scorecard-filtered-count">{{ site.data.councils | size }}</span> of {{ site.data.councils | size }} councils
+                    </p>
+                    <button class="btn btn-secondary d-flex align-items-center gap-2" type="button" data-bs-toggle="collapse" data-bs-target="#scorecard-filters-detail" aria-controls="scorecard-filters-detail" aria-expanded="false">
+                        {%- include icons/filter.svg -%}
+                        Filter by council type and more…
+                    </button>
                 </div>
-            </div>
-            <div class="scorecard__summary__tile">
-                {% include images/leaf-2.svg classes="text-priority-2-200" %}
-                <div>
-                    <strong class="d-block h1 lh-1">
-                        <span id="scorecard-summary-priority-2-percent">
-                            {{- councils_priority_2_yes | divided_by: councils_total | times: 100 | round -}}
-                        </span>%
-                    </strong>
-                    <span class="d-block h6 mb-1">
-                        <span id="scorecard-summary-priority-2-absolute">{{ councils_priority_2_yes }}</span>
-                        of
-                        <span class="scorecard-filtered-count">{{ councils_total | round }}</span>
-                        <span class="scorecard__summary__tile__of-matching">matching</span>
-                        councils
-                    </span>
-                    have {{ site.data.priorities["priority_2"].description_committed }}
+                <div class="scorecard__data__filters collapse" id="scorecard-filters-detail">
+                    <div>
+                        <label class="form-label" for="filter-council-type">Council type</label>
+                        <select class="form-select" id="filter-council-type">
+                            <option value="" selected>All</option>
+                            <option value="council-type-stc">Single Tier (Unitary, Borough, etc) councils</option>
+                            <option value="council-type-cty">County councils</option>
+                            <option value="council-type-nmd">District councils</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label" for="filter-council-region">Country/region</label>
+                        <select class="form-select" id="filter-council-region">
+                            <option value="" selected>All</option>
+                            <optgroup label="Countries">
+                                <option value="nation-england">England</option>
+                                <option value="nation-scotland">Scotland</option>
+                                <option value="nation-wales">Wales</option>
+                                <option value="nation-northern-ireland">Northern Ireland</option>
+                            </optgroup>
+                            <optgroup label="Regions of England">
+                                <option value="region-east-midlands">East Midlands</option>
+                                <option value="region-east-of-england">East of England</option>
+                                <option value="region-london">London</option>
+                                <option value="region-north-east">North East</option>
+                                <option value="region-north-west">North West</option>
+                                <option value="region-south-east">South East</option>
+                                <option value="region-south-west">South West</option>
+                                <option value="region-west-midlands">West Midlands</option>
+                                <option value="region-yorkshire-and-the-humber">Yorkshire and The Humber</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label" for="filter-council-ruc">Rural/urban</label>
+                        <select class="form-select" id="filter-council-ruc">
+                            <option value="" selected>All</option>
+                            <option value="ruc-rural">Rural</option>
+                            <option value="ruc-sparse-and-rural">Sparse and rural</option>
+                            <option value="ruc-urban">Urban</option>
+                            <option value="ruc-urban-with-rural-areas">Urban with rural areas</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label" for="filter-council-imd">Socio-economic index (IMD)</label>
+                        <select class="form-select" id="filter-council-imd">
+                            <option value="" selected>All</option>
+                            <option value="imd-1">1st IMD quintile – most deprived</option>
+                            <option value="imd-2">2nd IMD quintile</option>
+                            <option value="imd-3">3rd IMD quintile</option>
+                            <option value="imd-4">4th IMD quintile</option>
+                            <option value="imd-5">5th IMD quintile – least deprived</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label" for="filter-ned">Nature emergency declaration</label>
+                        <select class="form-select" id="filter-ned">
+                            <option value="" selected>All</option>
+                            <option value="has-ned">Has declared a nature emergency</option>
+                            <option value="has-no-ned">Has not declared a nature emergency</option>
+                            <option value="has-priority-1">Has {{ site.data.priorities["priority_1"].description_committed }}</option>
+                            <option value="has-priority-2">Has {{ site.data.priorities["priority_2"].description_committed }}</option>
+                            <option value="has-priority-3">Has {{ site.data.priorities["priority_3"].description_committed }}</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="form-label" for="filter-ned-date">Year declaration passed</label>
+                        <select class="form-select" id="filter-ned-date">
+                            <option value="" selected>All</option>
+                            <option value="ned-year-2024">2024</option>
+                            <option value="ned-year-2023">2023</option>
+                            <option value="ned-year-2022">2022</option>
+                            <option value="ned-year-2021">2021</option>
+                            <option value="ned-year-2020">2020</option>
+                            <option value="ned-year-2019">2019</option>
+                            <option value="ned-year-2018">2018</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
-            <div class="scorecard__summary__tile">
-                {% include images/leaf-3.svg classes="text-priority-3-200" %}
-                <div>
-                    <strong class="d-block h1 lh-1">
-                        <span id="scorecard-summary-priority-3-percent">
-                            {{- councils_priority_3_yes | divided_by: councils_total | times: 100 | round -}}
-                        </span>%
-                    </strong>
-                    <span class="d-block h6 mb-1">
-                        <span id="scorecard-summary-priority-3-absolute">{{ councils_priority_3_yes }}</span>
-                        of
-                        <span class="scorecard-filtered-count">{{ councils_total | round }}</span>
-                        <span class="scorecard__summary__tile__of-matching">matching</span>
-                        councils
-                    </span>
-                    have {{ site.data.priorities["priority_3"].description_committed }}
+                <div class="scorecard__data__table table-responsive">
+                    <table class="table mb-0" id="scorecard-table">
+                        <thead>
+                            <tr>
+                                <th class="council-name">
+                                    Council
+                                    <label class="visually-hidden" for="scorecard-table-search">Find a council by name</label>
+                                    <p class="search-input mt-2 mb-0">
+                                        <input type="text" class="form-control form-control-sm" placeholder="Find a council by name" id="scorecard-table-search">
+                                        <button type="button" aria-label="Search">{% include icons/search.svg %}</button>
+                                    </p>
+                                </th>
+                                <th style="vertical-align: top;" class="priority-0">
+                                    {% include images/priority-0.svg classes="d-block text-priority-0 mt-n2 mb-2" width="40" height="40" %}
+                                    Nature emergency
+                                </th>
+                                <th style="vertical-align: top;" class="priority-1">
+                                    {% include images/priority-1.svg classes="d-block text-priority-1 mt-n2 mb-2" width="40" height="40" %}
+                                    {{ site.data.priorities["priority_1"].short_name | capitalize }}
+                                </th>
+                                <th style="vertical-align: top;" class="priority-2">
+                                    {% include images/priority-2.svg classes="d-block text-priority-2 mt-n2 mb-2" width="40" height="40" %}
+                                    {{ site.data.priorities["priority_2"].short_name | capitalize }}
+                                </th>
+                                <th style="vertical-align: top;" class="priority-3">
+                                    {% include images/priority-3.svg classes="d-block text-priority-3 mt-n2 mb-2" width="40" height="40" %}
+                                    {{ site.data.priorities["priority_3"].short_name | capitalize }}
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {%- for c in site.data.councils -%}
+                            <tr data-council-slug="{{ c.council_slug }}" data-council-type="{% include simplified-council-type.html council_type=c.council_type %}" data-nation="{{ c.council_nation }}" data-region="{{ c.council_region }}" data-ruc="{{ c.council_ruc }}" data-imd="{{ c.council_imd|slice:0 }}" data-ned="{{ c.ned }}" data-ned-year="{{ c.ned_date_passed | date: '%Y' }}" data-priority-1="{{ c.priority_1 }}" data-priority-2="{{ c.priority_2 }}" data-priority-3="{{ c.priority_3 }}">
+                                <td class="council-name">
+                                    <a href="{{ c.council_slug | prepend: 'councils/' | relative_url }}">{{ c.council_name }}</a>
+                                </td>
+                                <td class="text-{% include declaration-color.html i=c.ned %} priority-0">
+                                    {%- include declaration-tick-cross.html i=c.ned -%}
+                                {%- if c.ned_date_passed -%}
+                                    {{- c.ned_date_passed | date: '%Y' -}}
+                                {%- endif -%}
+                                </td>
+                                <td class="text-{% include priority-color.html i=c.priority_1 %} priority-1">
+                                    {%- include priority-tick-cross.html i=c.priority_1 -%}
+                                </td>
+                                <td class="text-{% include priority-color.html i=c.priority_2 %} priority-2">
+                                    {%- include priority-tick-cross.html i=c.priority_2 -%}
+                                </td>
+                                <td class="text-{% include priority-color.html i=c.priority_3 %} priority-3">
+                                    {%- include priority-tick-cross.html i=c.priority_3 -%}
+                                </td>
+                            </tr>
+                        {%- endfor -%}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
 
-        <div class="scorecard__data">
-            <div class="scorecard__data__header">
-                <p class="h6 mb-0">
-                    Showing <span class="scorecard-filtered-count">{{ site.data.councils | size }}</span> of {{ site.data.councils | size }} councils
-                </p>
-                <button class="btn btn-secondary d-flex align-items-center gap-2" type="button" data-bs-toggle="collapse" data-bs-target="#scorecard-filters-detail" aria-controls="scorecard-filters-detail" aria-expanded="false">
-                    {%- include icons/filter.svg -%}
-                    Filter by council type and more…
-                </button>
-            </div>
-            <div class="scorecard__data__filters collapse" id="scorecard-filters-detail">
-                <div>
-                    <label class="form-label" for="filter-council-type">Council type</label>
-                    <select class="form-select" id="filter-council-type">
-                        <option value="" selected>All</option>
-                        <option value="council-type-stc">Single Tier (Unitary, Borough, etc) councils</option>
-                        <option value="council-type-cty">County councils</option>
-                        <option value="council-type-nmd">District councils</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="form-label" for="filter-council-region">Country/region</label>
-                    <select class="form-select" id="filter-council-region">
-                        <option value="" selected>All</option>
-                        <optgroup label="Countries">
-                            <option value="nation-england">England</option>
-                            <option value="nation-scotland">Scotland</option>
-                            <option value="nation-wales">Wales</option>
-                            <option value="nation-northern-ireland">Northern Ireland</option>
-                        </optgroup>
-                        <optgroup label="Regions of England">
-                            <option value="region-east-midlands">East Midlands</option>
-                            <option value="region-east-of-england">East of England</option>
-                            <option value="region-london">London</option>
-                            <option value="region-north-east">North East</option>
-                            <option value="region-north-west">North West</option>
-                            <option value="region-south-east">South East</option>
-                            <option value="region-south-west">South West</option>
-                            <option value="region-west-midlands">West Midlands</option>
-                            <option value="region-yorkshire-and-the-humber">Yorkshire and The Humber</option>
-                        </optgroup>
-                    </select>
-                </div>
-                <div>
-                    <label class="form-label" for="filter-council-ruc">Rural/urban</label>
-                    <select class="form-select" id="filter-council-ruc">
-                        <option value="" selected>All</option>
-                        <option value="ruc-rural">Rural</option>
-                        <option value="ruc-sparse-and-rural">Sparse and rural</option>
-                        <option value="ruc-urban">Urban</option>
-                        <option value="ruc-urban-with-rural-areas">Urban with rural areas</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="form-label" for="filter-council-imd">Socio-economic index (IMD)</label>
-                    <select class="form-select" id="filter-council-imd">
-                        <option value="" selected>All</option>
-                        <option value="imd-1">1st IMD quintile – most deprived</option>
-                        <option value="imd-2">2nd IMD quintile</option>
-                        <option value="imd-3">3rd IMD quintile</option>
-                        <option value="imd-4">4th IMD quintile</option>
-                        <option value="imd-5">5th IMD quintile – least deprived</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="form-label" for="filter-ned">Nature emergency declaration</label>
-                    <select class="form-select" id="filter-ned">
-                        <option value="" selected>All</option>
-                        <option value="has-ned">Has declared a nature emergency</option>
-                        <option value="has-no-ned">Has not declared a nature emergency</option>
-                        <option value="has-priority-1">Has {{ site.data.priorities["priority_1"].description_committed }}</option>
-                        <option value="has-priority-2">Has {{ site.data.priorities["priority_2"].description_committed }}</option>
-                        <option value="has-priority-3">Has {{ site.data.priorities["priority_3"].description_committed }}</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="form-label" for="filter-ned-date">Year declaration passed</label>
-                    <select class="form-select" id="filter-ned-date">
-                        <option value="" selected>All</option>
-                        <option value="ned-year-2024">2024</option>
-                        <option value="ned-year-2023">2023</option>
-                        <option value="ned-year-2022">2022</option>
-                        <option value="ned-year-2021">2021</option>
-                        <option value="ned-year-2020">2020</option>
-                        <option value="ned-year-2019">2019</option>
-                        <option value="ned-year-2018">2018</option>
-                    </select>
-                </div>
-            </div>
-            <div class="scorecard__data__table table-responsive">
-                <table class="table mb-0" id="scorecard-table">
-                    <thead>
-                        <tr>
-                            <th class="council-name">
-                                Council
-                                <label class="visually-hidden" for="scorecard-table-search">Find a council by name</label>
-                                <p class="search-input mt-2 mb-0">
-                                    <input type="text" class="form-control form-control-sm" placeholder="Find a council by name" id="scorecard-table-search">
-                                    <button type="button" aria-label="Search">{% include icons/search.svg %}</button>
-                                </p>
-                            </th>
-                            <th style="vertical-align: top;" class="priority-0">
-                                {% include images/priority-0.svg classes="d-block text-priority-0 mt-n2 mb-2" width="40" height="40" %}
-                                Nature emergency
-                            </th>
-                            <th style="vertical-align: top;" class="priority-1">
-                                {% include images/priority-1.svg classes="d-block text-priority-1 mt-n2 mb-2" width="40" height="40" %}
-                                {{ site.data.priorities["priority_1"].short_name | capitalize }}
-                            </th>
-                            <th style="vertical-align: top;" class="priority-2">
-                                {% include images/priority-2.svg classes="d-block text-priority-2 mt-n2 mb-2" width="40" height="40" %}
-                                {{ site.data.priorities["priority_2"].short_name | capitalize }}
-                            </th>
-                            <th style="vertical-align: top;" class="priority-3">
-                                {% include images/priority-3.svg classes="d-block text-priority-3 mt-n2 mb-2" width="40" height="40" %}
-                                {{ site.data.priorities["priority_3"].short_name | capitalize }}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {%- for c in site.data.councils -%}
-                        <tr data-council-slug="{{ c.council_slug }}" data-council-type="{% include simplified-council-type.html council_type=c.council_type %}" data-nation="{{ c.council_nation }}" data-region="{{ c.council_region }}" data-ruc="{{ c.council_ruc }}" data-imd="{{ c.council_imd|slice:0 }}" data-ned="{{ c.ned }}" data-ned-year="{{ c.ned_date_passed | date: '%Y' }}" data-priority-1="{{ c.priority_1 }}" data-priority-2="{{ c.priority_2 }}" data-priority-3="{{ c.priority_3 }}">
-                            <td class="council-name">
-                                <a href="{{ c.council_slug | prepend: 'councils/' | relative_url }}">{{ c.council_name }}</a>
-                            </td>
-                            <td class="text-{% include declaration-color.html i=c.ned %} priority-0">
-                                {%- include declaration-tick-cross.html i=c.ned -%}
-                            {%- if c.ned_date_passed -%}
-                                {{- c.ned_date_passed | date: '%Y' -}}
-                            {%- endif -%}
-                            </td>
-                            <td class="text-{% include priority-color.html i=c.priority_1 %} priority-1">
-                                {%- include priority-tick-cross.html i=c.priority_1 -%}
-                            </td>
-                            <td class="text-{% include priority-color.html i=c.priority_2 %} priority-2">
-                                {%- include priority-tick-cross.html i=c.priority_2 -%}
-                            </td>
-                            <td class="text-{% include priority-color.html i=c.priority_3 %} priority-3">
-                                {%- include priority-tick-cross.html i=c.priority_3 -%}
-                            </td>
-                        </tr>
-                    {%- endfor -%}
-                    </tbody>
-                </table>
-            </div>
+        <div class="mt-4 mt-lg-5 text-balance text-center">
+            {% include corrections.html location="index" %}
         </div>
-    </div>
 
-    <div class="mt-4 mt-lg-5 text-balance text-center">
-        {% include corrections.html location="index" %}
-    </div>
+        <div class="mt-5 mt-lg-6">
+            {% include supporter-cta.html location="index" %}
+        </div>
 
-    <div class="mt-5 mt-lg-6">
-        {% include supporter-cta.html location="index" %}
     </div>
 </div>
 

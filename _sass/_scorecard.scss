@@ -1,16 +1,20 @@
-html:has(.scorecard),
-body:has(.scorecard) {
-    scroll-snap-type: y proximity;
-}
-
 .scorecard__summary {
     display: grid;
     gap: map-get($spacers, 3);
-    grid-template-columns: repeat(1, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     margin: map-get($spacers, 4) 0;
 
-    @include media-breakpoint-up(sm) {
-        grid-template-columns: repeat(2, 1fr);
+    // More compact style for narrow screens.
+    @include media-breakpoint-down(sm) {
+        gap: 0;
+
+        .scorecard__summary__tile {
+            font-size: 0.875rem;
+
+            .h6 {
+                font-size: 0.875rem;
+            }
+        }
     }
 
     @include media-breakpoint-up(md) {
@@ -49,6 +53,11 @@ body:has(.scorecard) {
         height: 130%;
         width: auto;
         z-index: -1;
+
+        // More compact style for narrow screens.
+        @include media-breakpoint-down(sm) {
+            height: 110%;
+        }
     }
 
     div {
@@ -63,9 +72,7 @@ body:has(.scorecard) {
 
     display: flex;
     flex-direction: column;
-    max-height: calc(100dvh - 4rem);
-    scroll-snap-align: start;
-    scroll-margin-top: 2rem;
+    max-height: calc(100dvh - 8rem);
 }
 
 .scorecard__data__header,
@@ -105,6 +112,8 @@ body:has(.scorecard) {
 // on an individual council page share a lot of common styles.
 .scorecard__data__table,
 .mini-scorecard {
+    position: relative; // Fixes an invisible overflow scroll bug in Webkit.
+
     table {
         --cell-padding: 0.5rem;
 
@@ -129,13 +138,14 @@ body:has(.scorecard) {
         }
 
         tr > .council-name {
-            min-width: 15em !important;
+            min-width: 13em;
         }
 
         tr > .priority-0,
         tr > .priority-1,
         tr > .priority-2,
         tr > .priority-3 {
+            min-width: 7em;
             width: 15%;
         }
 
@@ -195,10 +205,7 @@ body:has(.scorecard) {
 }
 
 .scorecard__data__table {
-    @include media-breakpoint-up(sm) {
-        width: 100%;
-        overflow: auto;
-    }
+    overscroll-behavior: none; // Prevent weird-looking rubber band overscrolling
 
     table {
         thead {
