@@ -1,7 +1,7 @@
 title: Nature Emergency
 description: Has your council declared a nature emergency?
-baseurl: "/nature-emergency" # the subpath of your site, e.g. /blog
-url: "https://mysociety.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://www.natureemergency.com" # the base hostname & protocol for your site, e.g. http://example.com
 host: 0.0.0.0
 
 # gtag_id: "…"
