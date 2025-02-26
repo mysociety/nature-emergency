@@ -92,6 +92,7 @@ $theme-colors: (
 
 $enable-shadows: false; // the default anyway (we don't want shadows inside form-controls, etc)
 $enable-negative-margins: true;
+$enable-dark-mode: false; // no need for Bootstrap to waste bytes on this
 
 $variable-prefix: "bs-";
 $prefix: $variable-prefix;
@@ -205,6 +206,8 @@ $lead-font-size: $font-size-base * 1.5;
 $blockquote-font-size: 1rem;
 
 // Tables
+
+$table-variants: (); // no need to waste bytes on table variants we won't use
 
 // Buttons + Forms
 

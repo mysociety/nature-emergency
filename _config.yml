@@ -22,6 +22,7 @@ exclude:
   - vendor/
 
 sass:
+  style: compressed
   sourcemap: never
   load_paths:
     - static/vendor/
