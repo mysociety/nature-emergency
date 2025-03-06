@@ -19,7 +19,7 @@ function setUpGeocodeAutocomplete(inputElement, singleResultCallback) {
             window.councils,
             {'council_name': selection.text.value}
         );
-        singleResultCallback(council);
+        singleResultCallback(council, awesomplete);
     });
 
     $(inputElement).on('keypress', function (e) {
@@ -60,7 +60,7 @@ function setUpGeocodeAutocomplete(inputElement, singleResultCallback) {
                         window.councils,
                         {'council_gss': matches[0].codes.gss}
                     );
-                    singleResultCallback(council);
+                    singleResultCallback(council, awesomplete);
 
                 // If MapIt returns multiple areas (in the case of
                 // two-tier authorities, eg: CB3 9DR) override the
@@ -93,7 +93,7 @@ $(function(){
         var inputElement = this;
         setUpGeocodeAutocomplete(
             inputElement,
-            function (council) {
+            function (council, awesomplete) {
                 window.location = window.baseurl + '/councils/' + council.council_slug;
             }
         );
@@ -151,13 +151,14 @@ $(function(){
         var inputElement = this;
         setUpGeocodeAutocomplete(
             inputElement,
-            function (council) {
+            function (council, awesomplete) {
                 var $row = $('#scorecard-table').find('tr[data-council-slug="' + council.council_slug + '"]').eq(0);
                 $row.addClass('highlight').siblings('.highlight').removeClass('highlight');
                 $row[0].scrollIntoView({
                     block: 'center',
                     inline: 'center'
                 });
+                awesomplete.close();
             }
         );
     });
