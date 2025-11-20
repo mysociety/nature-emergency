@@ -30,6 +30,12 @@ sass:
 plugins:
   - jekyll-datapage-generator
 
+# Blog collection
+collections:
+  blog:
+    output: true
+    permalink: /blog/:name/
+
 # https://github.com/avillafiorita/jekyll-datapage_gen
 page_gen:
   - data: councils

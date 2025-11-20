@@ -1,0 +1,42 @@
+---
+layout: default
+permalink: /blog/
+title: Blog
+---
+
+<div class="my-4 my-sm-5 my-lg-6">
+
+    <div class="container">
+        <h1 class="display-1 mb-4 mb-lg-5 text-center">Blog</h1>
+    </div>
+
+    {% assign sorted_posts = site.blog | sort: "date" | reverse %}
+    {% for post in sorted_posts %}
+        <div class="container mw-60rem">
+            <h2 class="h1 text-center text-balance">
+                <a href="{{ post.url | relative_url }}">
+                    {{ post.title }}
+                </a>
+            </h2>
+            {% if post.layout == 'case-study' %}
+                <dl class="council-metadata-grid mt-4 mb-4 mb-lg-5">
+                    <dt>Council type</dt>
+                    <dd class="mb-lg-3">{{ post.council_type }}</dd>
+                    <dt>Population (2021 census)</dt>
+                    <dd class="mb-lg-3">{{ post.population }}</dd>
+                    <dt>Wards</dt>
+                    <dd class="mb-lg-3">{{ post.wards }}</dd>
+                    <dt>Area</dt>
+                    <dd class="mb-lg-3">{{ post.area }}</dd>
+                </dl>
+            {% endif %}
+        </div>
+        <div class="container-readable">
+            {{ post.content }}
+            {% unless forloop.last %}
+                <hr class="my-5 my-lg-6 my-xl-7">
+            {% endunless %}
+        </div>
+    {% endfor %}
+
+</div>

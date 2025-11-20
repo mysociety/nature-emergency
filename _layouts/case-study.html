@@ -1,0 +1,32 @@
+---
+layout: default
+---
+
+<div class="my-4 my-sm-5 my-lg-6">
+
+    <div class="container mw-60rem">
+        <p class="text-center">
+            <a href="{{ '/blog/' | relative_url }}">Blog</a>
+            <span class="text-muted">/</span>
+            <a href="{{ '/case-studies/' | relative_url }}">Case Studies</a>
+        </p>
+
+        <h1 class="h1 text-center text-balance">{{ page.title }}</h1>
+
+        <dl class="council-metadata-grid mt-4 mb-4 mb-lg-5">
+            <dt>Council type</dt>
+            <dd class="mb-lg-3">{{ page.council_type }}</dd>
+            <dt>Population (2021 census)</dt>
+            <dd class="mb-lg-3">{{ page.population }}</dd>
+            <dt>Wards</dt>
+            <dd class="mb-lg-3">{{ page.wards }}</dd>
+            <dt>Area</dt>
+            <dd class="mb-lg-3">{{ page.area }}</dd>
+        </dl>
+    </div>
+
+    <div class="container-readable">
+        {{ content }}
+    </div>
+
+</div>

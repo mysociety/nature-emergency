@@ -26,3 +26,10 @@ a:not(.btn, .dropdown-item, .nav-link, .social-sharing-buttons *, .wt-nav__brand
         --underline-width: 1px;
     }
 }
+
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+    a {
+        font-weight: inherit;
+    }
+}
