@@ -19,7 +19,7 @@ title: Blog
                 </a>
             </h2>
             {% if post.layout == 'case-study' %}
-                <dl class="council-metadata-grid mt-4 mb-4 mb-lg-5">
+                <dl class="council-metadata-grid mt-4">
                     <dt>Council type</dt>
                     <dd class="mb-lg-3">{{ post.council_type }}</dd>
                     <dt>Population (2021 census)</dt>
@@ -29,10 +29,12 @@ title: Blog
                     <dt>Area</dt>
                     <dd class="mb-lg-3">{{ post.area }}</dd>
                 </dl>
+            {% elsif post.layout == 'blog-post' %}
+                <p class="text-center text-muted mt-4">{{ post.author }}</p>
             {% endif %}
         </div>
-        <div class="container-readable">
-            {{ post.content }}
+        <div class="container-readable mt-4 mt-lg-5">
+            {{ post.content | markdownify }}
             {% unless forloop.last %}
                 <hr class="my-5 my-lg-6 my-xl-7">
             {% endunless %}
